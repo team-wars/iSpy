@@ -6,31 +6,33 @@ module.exports = {
     path: path.resolve('build'),
     filename: 'bundle.js',
   },
-  devtool : 'inline-source-map', 
-  devServer:{
+  devtool: 'inline-source-map',
+  devServer: {
     port: 8080,
-    proxy:{
-      context: ['/','/api'],
+    hot: true,
+    publicPath: '/build/',
+    proxy: {
+      context: ['/', '/api'],
       target: 'http://localhost:3000',
-    }
+    },
   },
   mode: process.env.NODE_ENV,
   module: {
-    rules:[
+    rules: [
       {
         test: /\.jsx?/,
         exclude: /node_modules/,
         use: {
-          loader:'babel-loader',
-          options:{
-            presets: ['@babel/preset-env','@babel/preset-react']
-          }
-        }
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+          },
+        },
       },
       {
         test: /\.s?css$/,
-        use:['style-loader','css-loader','sass-loader'],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
-    ]
-  }
-}
+    ],
+  },
+};
