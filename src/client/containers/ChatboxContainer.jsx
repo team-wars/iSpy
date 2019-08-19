@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Board extends Component {
+class ChatboxContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -9,9 +9,9 @@ class Board extends Component {
 
   render() {
     return (
-      <section>This is the board</section>
+      <section>This is the Chatbox Container</section>
     );
   }
 }
 
-export default Board;
+export default ChatboxContainer;

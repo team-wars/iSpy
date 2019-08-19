@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Board extends Component {
+class SpymasterContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -9,9 +9,9 @@ class Board extends Component {
 
   render() {
     return (
-      <section>This is the board</section>
+      <section>This is the Spymaster Container</section>
     );
   }
 }
 
-export default Board;
+export default SpymasterContainer;
