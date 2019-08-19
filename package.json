@@ -1,12 +1,12 @@
 {
-  "name": "Codenames",
+  "name": "iSpy",
   "version": "1.0.0",
   "description": "Web application version of codenames",
   "main": "./src/client/index.js",
   "scripts": {
-    "start": "nodemon ./src/server/server.js",
-    "build": "webpack & nodemon ./src/server/server.js",
-    "dev": "webpack-dev-server --hot & nodemon ./src/server/server.js",
+    "start": "nodemon src/server/server.js",
+    "build": "NODE_ENV=production webpack && nodemon src/server/server.js",
+    "dev": "NODE_ENV=development webpack-dev-server --hot && nodemon src/server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -29,6 +29,7 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
     "hot-module-replacement": "^3.0.3",
     "node-sass": "^4.12.0",
