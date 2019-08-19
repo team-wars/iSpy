@@ -3,14 +3,14 @@ const path = require('path');
 module.exports = {
   entry: './src/client/index.js',
   output: {
-    path: path.resolve(__dirname,'build'),
+    path: path.resolve('build'),
     filename: 'bundle.js',
   },
   devtool : 'inline-source-map', 
   devServer:{
     port: 8080,
     proxy:{
-      context: ['/api'],
+      context: ['/','/api'],
       target: 'http://localhost:3000',
     }
   },
