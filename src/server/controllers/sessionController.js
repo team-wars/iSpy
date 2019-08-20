@@ -1,4 +1,4 @@
-const db = require('./db/index');
+const db = require('../db/index');
 
 const genRoomID = () => {
     const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -9,17 +9,23 @@ const genRoomID = () => {
 
 module.exports = {
     create(req, res) {
-        db.query('SELECT * FROM session')
+        db.query('SELECT room FROM session ORDER BY room DESC LIMIT 1')
             .then(data => {
-                console.log(data);
-                console.log(typeof data);
+                 
+                console.log('new session data ', data);
+                console.log('type of data ', typeof data);
+                console.log('data.rows ', data.rows)
+                // let roomID;
+                // let isUnique = false;
+                // while (!isUnique) {
+                //     roomID = genRoomID();
+                //     isUnique = data.rows.includes(roomID);
+                // }
                 let roomID;
-                let isUnique = false;
-                while (!isUnique) {
-                    roomID = genRoomID();
-                    isUnique = data.includes(roomID);
-                }
-                db.query('INSERT INTO session(satus, room) VALUES($1, $2)', ['idle', roomID])
+                if (!data.rows.length) roomID = 1;
+                else roomID = Number(data.rows[0].room) + 1;
+                console.log('roomID ', roomID)
+                db.query('INSERT INTO session(status, room) VALUES($1, $2)', ['idle', roomID])
                     .then(result => console.log('result: ', result))
                     .catch(err => console.log('error inserting session: ', err));
 
