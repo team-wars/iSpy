@@ -36,9 +36,11 @@
   grid-area: row-5;
 }
 
-.tile button {
+.tile {
+  button {
     background-color: skyblue;
     color: white;
     width: 20%px;
     height: 50px;
+  }
 }
