@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import Board from '../components/Board.jsx';
 import Chatbox from '../components/Chatbox.jsx';
 
-class ChatboxContainer extends Component {
+class GameContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -10,12 +11,13 @@ class ChatboxContainer extends Component {
 
   render() {
     return (
-      <section className="chatbox-container">
+      <section className="game-container">
+        This is the Game Container
+        <Board />
         <Chatbox />
-        This is the Chatbox Container
       </section>
     );
   }
 }
 
-export default ChatboxContainer;
+export default GameContainer;
