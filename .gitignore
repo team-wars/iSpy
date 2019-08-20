@@ -3,3 +3,4 @@ yarn.lock
 yarn-error.log
 build/
 package-lock.json
+src/server/db/credentials.js
