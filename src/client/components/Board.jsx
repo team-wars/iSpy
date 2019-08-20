@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'redux';
+
+const mapStateToProps = () => {
+
+};
+
+const mapDispatchToProps = () => {
+
+};
 
 class Board extends Component {
   constructor(props) {
@@ -14,4 +23,4 @@ class Board extends Component {
   }
 }
 
-export default Board;
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
