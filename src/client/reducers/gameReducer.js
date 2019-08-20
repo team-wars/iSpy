@@ -1,3 +1,5 @@
+import * as types from '../constants/ActionTypes';
+
 const initialTeamObj = {
   members: [
     {
@@ -30,6 +32,9 @@ const initialState = {
 
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.TEST:
+      alert(action.payload);
+      return state;
     default:
       return state;
   }

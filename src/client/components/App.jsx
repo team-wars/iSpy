@@ -1,12 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Board from './Board.jsx';
+import ChatboxContainer from '../containers/ChatboxContainer.jsx';
+import ListContainer from '../containers/ListContainer.jsx';
+import SpymasterContainer from '../containers/SpymasterContainer.jsx';
 
-class App extends Component {
-  render() {
-    return (
-      <section>
-        <article> Hello world! </article>
-      </section>
-    );
-  }
-}
+const App = () => (
+  <>
+    <section>
+      <h2> Hello world! </h2>
+    </section>
+    <>
+      <Board />
+    </>
+    <>
+      <ChatboxContainer />
+    </>
+    <>
+      <ListContainer />
+    </>
+    <>
+      <SpymasterContainer />
+    </>
+  </>
+);
+
 export default App;
