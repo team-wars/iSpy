@@ -1,8 +1,24 @@
 const express = require('express');
 const path = require('path');
 const apiRouter = require('./routers/apiRouter')
+const sassMiddleware = require('node-sass-middleware');
 const app = express();
 const PORT = 3000;
+
+
+// app.use(sassMiddleware({
+//   /* Options */
+//   src: path.join(__dirname, '../stylesheet'),
+//   dest: path.join(__dirname, 'build'),
+//   debug: true,
+//   outputStyle: 'compressed',
+//   indentedSyntax: false,
+//   prefix: '/stylesheet', // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+// }), express.static(path.join(__dirname, 'build')));
+
+
+app.use('/static', express.static(path.join(__dirname, '../build')));
+// app.use('/static', express.static('build'));
 
 
 app.use('/static', express.static(path.join(__dirname, '../build')));
