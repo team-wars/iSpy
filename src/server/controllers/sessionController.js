@@ -9,21 +9,22 @@ const genRoomID = () => {
 
 module.exports = {
     create(req, res) {
-        db.query('SELECT room FROM session ORDER BY room DESC LIMIT 1')
+        db.query('SELECT * FROM session')
             .then(data => {
                  
-                console.log('new session data ', data);
-                console.log('type of data ', typeof data);
-                console.log('data.rows ', data.rows)
-                // let roomID;
-                // let isUnique = false;
-                // while (!isUnique) {
-                //     roomID = genRoomID();
-                //     isUnique = data.rows.includes(roomID);
-                // }
-                let roomID;
-                if (!data.rows.length) roomID = 1;
-                else roomID = Number(data.rows[0].room) + 1;
+              
+                const cache = {};
+                for (let row of data.rows) {
+                    const room = row.room;
+                    cache[room] = true;
+                }
+                
+                
+                let roomID = genRoomID();
+                while (roomID in cache) {
+                    roomID = genRoomID();
+                }  
+                
                 console.log('roomID ', roomID)
                 db.query('INSERT INTO session(status, room) VALUES($1, $2)', ['idle', roomID])
                     .then(result => console.log('result: ', result))
