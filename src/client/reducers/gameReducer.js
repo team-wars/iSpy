@@ -25,7 +25,7 @@ const initialState = {
 };
 
 const gameReducer = (state = initialState, action) => {
-  console.log(mockGameBoard);
+  // console.log(mockGameBoard);
   switch (action.type) {
     case types.TEST:
       alert(action.payload);
