@@ -26,11 +26,8 @@
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-<<<<<<< HEAD
     "uuid": "^3.3.3"
-=======
     "sass": "^1.22.10"
->>>>>>> dev
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
