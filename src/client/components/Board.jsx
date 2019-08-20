@@ -3,10 +3,14 @@ import { connect } from 'react-redux';
 import Tile from './Tile.jsx';
 import { testFunc } from '../actions/actions';
 
-const mapStateToProps = (state, ownProps) => state;
+import styles from '../stylesheet/board.css';
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  test: testMsg => dispatch(testFunc('TEST')),
+const mapStateToProps = state => ({
+  gameBoard: state.gameBoard,
+});
+
+const mapDispatchToProps = dispatch => ({
+  test: testMsg => dispatch(testFunc(testMsg)),
 });
 
 class Board extends Component {
@@ -19,29 +23,28 @@ class Board extends Component {
   }
 
   render() {
-    const { test } = this.props;
+    const { test, gameBoard } = this.props;
     return (
       <>
-        <section>This is the board</section>
+        <h2>This is the board</h2>
         <section className="game-board">
           <>
             <section className="game-row" id="row-1">
-              {this.state.dummyTiles.map(el => <Tile />)}
+              {this.state.dummyTiles.map(el => <Tile testClick={() => test('this is a test')} />)}
             </section>
             <section className="game-row" id="row-2">
-              {this.state.dummyTiles.map(el => <Tile />)}
+              {this.state.dummyTiles.map(el => <Tile testClick={() => test('this is a test')} />)}
             </section>
             <section className="game-row" id="row-3">
-              {this.state.dummyTiles.map(el => <Tile />)}
+              {this.state.dummyTiles.map(el => <Tile testClick={() => test('this is a test')} />)}
             </section>
             <section className="game-row" id="row-4">
-              {this.state.dummyTiles.map(el => <Tile />)}
+              {this.state.dummyTiles.map(el => <Tile testClick={() => test('this is a test')} />)}
             </section>
             <section className="game-row" id="row-5">
-              {this.state.dummyTiles.map(el => <Tile />)}
+              {this.state.dummyTiles.map(el => <Tile testClick={() => test('this is a test')} />)}
             </section>
           </>
-          <button type="button" onClick={test}>Test Me</button>
         </section>
       </>
     );

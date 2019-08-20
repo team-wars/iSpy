@@ -5,9 +5,7 @@ const db = require('./db/index');
 const app = express();
 const PORT = 3000;
 
-
-// app.use('/static', express.static(path.join(__dirname, '../build')));
-
+app.use('/static', express.static(path.join(__dirname, '../build')));
 
 app.get('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/index.html')));
 // res.send('hello world');

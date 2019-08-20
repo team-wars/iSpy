@@ -33,7 +33,7 @@ const initialState = {
 const gameReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.TEST:
-      alert('TEST');
+      alert(action.payload);
       return state;
     default:
       return state;
