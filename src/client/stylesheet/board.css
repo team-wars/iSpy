@@ -1,0 +1,48 @@
+.game-board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto;
+  grid-template-areas: 
+  "row-1 row-1 row-1 row-1 row-1"
+  "row-2 row-2 row-2 row-2 row-2"
+  "row-3 row-3 row-3 row-3 row-3"
+  "row-4 row-4 row-4 row-4 row-4"
+  "row-5 row-5 row-5 row-5 row-5";
+}
+
+
+.game-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#row-1 {
+  grid-area: row-1;
+}
+
+#row-2 {
+  grid-area: row-2;
+}
+
+#row-3 {
+  grid-area: row-3;
+}
+
+#row-4 {
+  grid-area: row-4;
+}
+
+#row-5 {
+  grid-area: row-5;
+}
+
+.tile {
+  /* grid-column: 1 / span 25; */
+}
+
+.tile button {
+  background-color: skyblue;
+  color: white;
+  width: 20%px;
+  height: 50px;
+}
