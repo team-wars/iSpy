@@ -64,3 +64,5 @@ const selectWords = () => {
     // return array
   });
 };
+
+module.exports = selectWords;
