@@ -27,6 +27,7 @@ const initialState = {
 
 const gameReducer = (state = initialState, action) => {
   // console.log(mockGameBoard);
+  // console.log('inside reducer');
   switch (action.type) {
     case types.NEW_SESSION:
       console.log('got a new session');
@@ -39,7 +40,7 @@ const gameReducer = (state = initialState, action) => {
       console.log('testing testing');
       return state;
     default:
-      console.log('reducer run');
+      console.log('default reducer run');
       return state;
   }
 };

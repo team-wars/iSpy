@@ -1,18 +1,31 @@
 import * as types from '../constants/ActionTypes';
 
-export const makeNewSessionAction = sessionID => ({
-  // THUNK BELOW
-  type: types.NEW_SESSION,
-  payload: { sessionID },
-});
+// populateBoard thunk
+export const populateBoard = () => dispatch => fetch('/api/game/start', {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+  },
+  body: JSON.stringify({ session_id: 1 }),
+})
+  .then(response => response.json())
+  .then((data) => {
+    console.log('this is my data! ', data);
+  })
+  .catch((err) => {
+    console.log('error in populateBoard fetch ', err);
+  });
 
-// THUNK FOR ABOVE
 // SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
 export const makeNewSession = () => dispatch => fetch('/api/session/create')
   .then(res => res.json())
   .then((data) => {
     console.log('got data back: ', data);
-    dispatch(makeNewSessionAction(data.currentSessionID));
+    // dispatch(makeNewSessionAction(data.currentSessionID));
+    dispatch({
+      type: types.NEW_SESSION,
+      payload: { sessionID: data.currentSessionID },
+    });
   })
   .catch(e => console.log('error caught: ', e));
 
