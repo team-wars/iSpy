@@ -5,20 +5,12 @@ import GameContainer from '../containers/GameContainer.jsx';
 import ListContainer from '../containers/ListContainer.jsx';
 import SpymasterContainer from '../containers/SpymasterContainer.jsx';
 
+
 const App = () => (
   <>
-    <section>
-      <h2> Hello world! </h2>
-    </section>
-    <>
-      <GameContainer />
-    </>
-    <>
-      <ListContainer />
-    </>
-    <>
-      <SpymasterContainer />
-    </>
+    <GameContainer />
+    <ListContainer />
+    <SpymasterContainer />
   </>
 );
 
