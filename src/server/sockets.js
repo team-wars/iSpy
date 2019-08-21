@@ -13,9 +13,7 @@ module.exports = {
 
         db.query(`SELECT * FROM "user" WHERE room='${room}'`)
           .then((result) => {
-            console.log('result is ', result.rows);
             const [blue, red] = result.rows.reduce((acc, row) => {
-              console.log('row.team ', row.team);
               if (row.team === 'blue') acc[0] += 1;
               else acc[1] += 1;
               return acc;
@@ -25,12 +23,11 @@ module.exports = {
             const userID = uuidv4();
             if (blue > red) team = 'red';
             else if (red === blue) team = 'blue';
-            console.log('spymaster ', spymaster);
-            console.log('userID ', userID);
             db.query('INSERT INTO "user"(id, room, username, spymaster, team, ready) VALUES($1, $2, $3, $4, $5, $6)', [userID, room, username, spymaster, team, false])
-              .then((data) => {
-                console.log('insert user result ', data);
-                io.to(room).emit('joined', data);
+              .then(() => {
+                io.to(room).emit('joined', {
+                  username, isSpyMaster: spymaster, team, ready: false,
+                });
               })
               .catch((err) => {
                 console.log('insert user error ', err);
