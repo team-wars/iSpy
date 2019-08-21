@@ -8,22 +8,37 @@ export const makeNewSessionAction = sessionID => ({
 
 // THUNK FOR ABOVE
 // SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
-export const makeNewSession = () => (dispatch) => {
-  console.log('inside thunk');
-  return fetch('/api/session/create')
-    .then(res => res.json())
-    .then((data) => {
-      console.log('got data back: ', data);
-      dispatch(makeNewSessionAction(data.currentSessionID));
-    })
-    .catch(e => console.log('error caught: ', e));
-};
+export const makeNewSession = () => dispatch => fetch('/api/session/create')
+  .then(res => res.json())
+  .then((data) => {
+    console.log('got data back: ', data);
+    dispatch(makeNewSessionAction(data.currentSessionID));
+  })
+  .catch(e => console.log('error caught: ', e));
 
-export const joinSession = () => ({
+export const joinSessionAction = () => ({
   // NEED A THUNK
   type: types.JOIN_SESSION,
   payload: 'filler',
 });
+
+export const joinSession = (currentSession, newUsername) => (dispatch) => {
+  console.log('inside join session thunk');
+  return fetch('/api/user/create', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      username: newUsername,
+      roomID: currentSession,
+    }),
+  })
+    .then(res => res.json())
+    .then((data) => {
+      console.log('data returned: ,', data);
+      joinSessionAction();
+    })
+    .catch(e => console.log('error in joining session: ', e));
+};
 
 export const startGame = () => ({
   // NEED A THUNK
