@@ -37,6 +37,13 @@ module.exports = {
             console.log('error selecting users ', err);
           });
       });
+      socket.on('ready', (username) => {
+        console.log('recieved from client for ready up: ', username, room);
+        db.query(`UPDATE "user" SET ready=(CASE WHEN ready=true THEN false ELSE true END) WHERE room='${room}' AND username='${username}' RETURNING ready`)
+          .then((data) => {
+            io.to(room).emit('ready changed', { username, ready: data.rows[0].ready });
+          });
+      });
     });
     server.listen(3000, () => console.log('Listening on port 3000'));
   },
