@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import List from '../components/List';
 
-class ListContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    // anymore methods, add here
-  }
-
-  render() {
-    return (
-      <section>This is the List Container</section>
-    );
-  }
-}
+const ListContainer = (props) => {
+  const { blueTeam, redTeam } = useSelector((store) => store.game);
+  return (
+    <section>
+      <List list={blueTeam} type="team" color="blue" />
+      <List list={redTeam} type="team" color="red" />
+    </section>
+  );
+};
 
 export default ListContainer;

@@ -1,7 +1,10 @@
 import React from 'react';
 
 const Chatbox = props => (
-  <section>This Is A Chatbox</section>
+  <section>
+    
+
+  </section>
 );
 
 export default Chatbox;

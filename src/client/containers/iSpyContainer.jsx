@@ -3,9 +3,8 @@ import GameContainer from './GameContainer';
 import ListContainer from './ListContainer';
 import SpymasterContainer from './SpymasterContainer';
 
-const iSpyContainer = (props) => (
+const iSpyContainer = () => (
   <>
-
     <GameContainer />
     <ListContainer />
     <SpymasterContainer />
