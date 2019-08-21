@@ -1,10 +1,24 @@
 import * as types from '../constants/ActionTypes';
 
-export const makeNewSession = () => ({
+export const makeNewSessionAction = sessionID => ({
   // NEED A THUNK
   type: types.NEW_SESSION,
-  payload: 'filler',
+  payload: { sessionID },
 });
+
+export const makeNewSession = () => (dispatch) => {
+  console.log('inside thunk');
+  return fetch('/api/session/create')
+    .then(res => res.json())
+    .then((data) => {
+      console.log('got data back: ', data);
+      dispatch(makeNewSessionAction(data.currentSessionID));
+    })
+    .catch(e => console.log('error caught: ', e));
+};
+// type: types.NEW_SESSION,
+// payload: 'filler',
+
 
 export const joinSession = () => ({
   // NEED A THUNK
