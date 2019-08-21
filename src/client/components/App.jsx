@@ -3,6 +3,7 @@ import Board from './Board.jsx';
 import ChatboxContainer from '../containers/ChatboxContainer.jsx';
 import ListContainer from '../containers/ListContainer.jsx';
 import SpymasterContainer from '../containers/SpymasterContainer.jsx';
+import io from 'socket.io-client';
 
 const App = () => (
   <>
@@ -23,5 +24,10 @@ const App = () => (
     </>
   </>
 );
+const socket = io();
+socket.on('user connected'){
+  
+}
+
 
 export default App;
