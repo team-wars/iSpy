@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { makeNewSession, joinSession } from '../actions/actions';
+import { makeNewSession, joinSession, populateBoard } from '../actions/actions';
 
 
 // FOR TESTING
@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => ({
   makeNewSession: () => dispatch(makeNewSession()),
   joinSession: (currentSession, newUsername) => dispatch(joinSession(currentSession, newUsername)),
+  populateBoard: () => dispatch(populateBoard()),
 });
 
 class SpymasterContainer extends Component {
@@ -26,12 +27,15 @@ class SpymasterContainer extends Component {
   }
 
   render() {
-    const { makeNewSession, sessionID, joinSession } = this.props;
+    const {
+      makeNewSession, sessionID, joinSession, populateBoard,
+    } = this.props;
     return (
       <>
         <section>This is the Spymaster Container</section>
         <LandingPageButton buttonName="Start Session" buttonFunction={makeNewSession} />
-        <LandingPageButton buttonName="Join Session" buttonFunction={() => joinSession(sessionID, 'Will')} />
+        <LandingPageButton buttonName="Join Session" buttonFunction={populateBoard} />
+        {/* <LandingPageButton buttonName="Join Session" buttonFunction={() => joinSession(sessionID, 'Will')} /> */}
       </>
     );
   }
