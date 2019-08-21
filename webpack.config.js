@@ -1,10 +1,13 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: './src/client/index.jsx',
   output: {
     path: path.resolve('build'),
     filename: 'bundle.js',
+  },
+  resolve: {
+    extensions: ['.jsx', '.js'],
   },
   devtool: 'inline-source-map',
   devServer: {
