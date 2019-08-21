@@ -1,11 +1,13 @@
 import * as types from '../constants/ActionTypes';
 
 export const makeNewSessionAction = sessionID => ({
-  // NEED A THUNK
+  // THUNK BELOW
   type: types.NEW_SESSION,
   payload: { sessionID },
 });
 
+// THUNK FOR ABOVE
+// SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
 export const makeNewSession = () => (dispatch) => {
   console.log('inside thunk');
   return fetch('/api/session/create')
@@ -16,9 +18,6 @@ export const makeNewSession = () => (dispatch) => {
     })
     .catch(e => console.log('error caught: ', e));
 };
-// type: types.NEW_SESSION,
-// payload: 'filler',
-
 
 export const joinSession = () => ({
   // NEED A THUNK
