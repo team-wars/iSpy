@@ -9,6 +9,8 @@ const genRoomID = () => {
 
 module.exports = {
   create(req, res) {
+    // changing query to find most recent ID and adding to the corresponding room
+    // ideally would change room column to be by INT, not by VARCHAR(4)
     db.query('SELECT * FROM session ORDER BY id DESC LIMIT 1')
       .then((data) => {
         console.log('new session data ', data);
@@ -30,8 +32,8 @@ module.exports = {
             res.locals.newRoom = roomID;
             res.status(200).json({ roomID });
           })
-          .catch((err) => console.log('error inserting session: ', err));
+          .catch(err => console.log('error inserting session: ', err));
       })
-      .catch((err) => console.log('Error selecting from session: ', err));
+      .catch(err => console.log('Error selecting from session: ', err));
   },
 };

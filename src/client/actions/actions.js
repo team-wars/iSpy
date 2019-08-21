@@ -1,20 +1,47 @@
 import * as types from '../constants/ActionTypes';
 
-export const makeNewSessionAction = sessionID => ({
-  // THUNK BELOW
-  type: types.NEW_SESSION,
-  payload: { sessionID },
+// populateBoard thunk
+export const populateBoard = () => (dispatch) => fetch('/api/game/start', {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+  },
+  body: JSON.stringify({ session_id: 1 }),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('this is my data! ', data);
+    dispatch({
+      type: types.POPULATE_BOARD,
+      payload: data,
+    });
+  })
+  .catch((err) => {
+    console.log('error in populateBoard fetch ', err);
+  });
+
+export const newClueInput = (newClue) => ({
+  type: types.NEW_CLUE_INPUT,
+  payload: newClue,
 });
 
-// THUNK FOR ABOVE
+export const setCurrentClue = (clue) => ({
+  type: types.SET_CURRENT_CLUE,
+  payload: clue,
+});
+
 // SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
-export const makeNewSession = () => dispatch => fetch('/api/session/create')
-  .then(res => res.json())
+export const makeNewSession = () => (dispatch) => fetch('/api/session/create')
+  .then((res) => res.json())
   .then((data) => {
     console.log('got data back: ', data);
-    dispatch(makeNewSessionAction(data.currentSessionID));
+    // dispatch(makeNewSessionAction(data.currentSessionID));
+    dispatch({
+      type: types.NEW_SESSION,
+      payload: { sessionID: data.currentSessionID },
+    });
   })
-  .catch(e => console.log('error caught: ', e));
+  .catch((e) => console.log('error caught: ', e));
 
 export const joinSessionAction = () => ({
   // NEED A THUNK
@@ -32,12 +59,12 @@ export const joinSession = (currentSession, newUsername) => (dispatch) => {
       roomID: currentSession,
     }),
   })
-    .then(res => res.json())
+    .then((res) => res.json())
     .then((data) => {
       console.log('data returned: ,', data);
       joinSessionAction();
     })
-    .catch(e => console.log('error in joining session: ', e));
+    .catch((e) => console.log('error in joining session: ', e));
 };
 
 export const startGame = () => ({
@@ -97,7 +124,7 @@ export const createUser = () => ({
 });
 
 // TEST
-export const testFunc = testMsg => ({
+export const testFunc = (testMsg) => ({
   type: types.TEST,
   payload: testMsg,
 });

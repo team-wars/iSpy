@@ -23,10 +23,14 @@ const initialState = {
     team: 'Blue',
   },
   gameBoard: mockGameBoard,
+  currentClue: '',
+  guessesLeft: 0,
+  newClue: '',
 };
 
 const gameReducer = (state = initialState, action) => {
   // console.log(mockGameBoard);
+  // console.log('inside reducer');
   switch (action.type) {
     case types.NEW_SESSION:
       console.log('got a new session');
@@ -38,8 +42,24 @@ const gameReducer = (state = initialState, action) => {
       // alert(action.payload);
       console.log('testing testing');
       return state;
+    case types.POPULATE_BOARD:
+      return {
+        ...state,
+        gameBoard: action.payload,
+      };
+    case types.NEW_CLUE_INPUT:
+      return {
+        ...state,
+        newClue: action.payload,
+      };
+    case types.SET_CURRENT_CLUE:
+      return {
+        ...state,
+        currentClue: action.payload,
+        newClue: '',
+      };
     default:
-      console.log('reducer run');
+      console.log('default reducer run');
       return state;
   }
 };

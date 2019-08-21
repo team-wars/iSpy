@@ -37,9 +37,26 @@
 
 .tile {
   button {
-    background-color: skyblue;
+    // background-color: skyblue;
     color: white;
     width: 100%;
     height: 50px;
+    font-size: 1.2rem;
   }
+  .unselected-tile-button {
+    background-color: gray;
+  }
+  .red-tile-button {
+    background-color: red;
+  }
+  .blue-tile-button {
+    background-color: blue;
+  }
+  .neutral-tile-button {
+    background-color: peru;
+  }
+  .assassin-tile-button {
+    background-color: black;
+  }
+
 }
