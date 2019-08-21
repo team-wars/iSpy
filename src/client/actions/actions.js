@@ -11,6 +11,10 @@ export const populateBoard = () => dispatch => fetch('/api/game/start', {
   .then(response => response.json())
   .then((data) => {
     console.log('this is my data! ', data);
+    dispatch({
+      type: types.POPULATE_BOARD,
+      payload: data,
+    });
   })
   .catch((err) => {
     console.log('error in populateBoard fetch ', err);

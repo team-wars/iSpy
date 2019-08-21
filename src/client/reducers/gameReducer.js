@@ -39,6 +39,11 @@ const gameReducer = (state = initialState, action) => {
       // alert(action.payload);
       console.log('testing testing');
       return state;
+    case types.POPULATE_BOARD:
+      return {
+        ...state,
+        gameBoard: action.payload,
+      }
     default:
       console.log('default reducer run');
       return state;

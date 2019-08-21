@@ -34,8 +34,8 @@ class SpymasterContainer extends Component {
       <>
         <section>This is the Spymaster Container</section>
         <LandingPageButton buttonName="Start Session" buttonFunction={makeNewSession} />
-        <LandingPageButton buttonName="Join Session" buttonFunction={populateBoard} />
-        {/* <LandingPageButton buttonName="Join Session" buttonFunction={() => joinSession(sessionID, 'Will')} /> */}
+        <LandingPageButton buttonName="Start Game/Populate Board" buttonFunction={populateBoard} />
+        <LandingPageButton buttonName="Join Session" buttonFunction={() => joinSession(sessionID, 'Will')} />
       </>
     );
   }
