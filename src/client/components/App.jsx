@@ -24,18 +24,10 @@ const App = () => {
       <input type="text" value={username} onChange={(e) => changeUser(e.target.value)} />
       <input type="text" value={roomNum} onChange={(e) => changeRoom(e.target.value)} />
       <button type="button" onClick={handleClick}>testing</button>
-      <section>
-        <h2> Hello world! </h2>
-      </section>
-      <>
-        <GameContainer />
-      </>
-      <>
-        <ListContainer />
-      </>
-      <>
-        <SpymasterContainer />
-      </>
+
+      <GameContainer />
+      <ListContainer />
+      <SpymasterContainer />
     </>
   );
 };

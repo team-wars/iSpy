@@ -5,11 +5,10 @@ import { testFunc } from '../actions/actions';
 
 // import styles from '../stylesheet/board.css';
 
-const mapStateToProps = state =>
-  // console.log('state: ', state.game.gameBoard);
-  ({
-    gameBoard: state.game.gameBoard,
-  });
+const mapStateToProps = state => ({
+  gameBoard: state.game.gameBoard,
+});
+
 const mapDispatchToProps = dispatch => ({
   test: testMsg => dispatch(testFunc(testMsg)),
 });
