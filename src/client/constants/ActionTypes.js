@@ -11,5 +11,7 @@ export const POPULATE_BOARD = 'POPULATE_BOARD';
 // below two might not be needed unless we have a PW login
 export const USER_LOGIN = 'USER_LOGIN';
 export const CREATE_USER = 'CREATE_USER';
+export const NEW_CLUE_INPUT = 'NEW_CLUE_INPUT';
+export const SET_CURRENT_CLUE = 'SET_CURRENT_CLUE';
 // TEST
 export const TEST = 'TEST';

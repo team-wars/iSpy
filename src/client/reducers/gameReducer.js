@@ -23,6 +23,9 @@ const initialState = {
     team: 'Blue',
   },
   gameBoard: mockGameBoard,
+  currentClue: '',
+  guessesLeft: 0,
+  newClue: '',
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -43,7 +46,18 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         gameBoard: action.payload,
-      }
+      };
+    case types.NEW_CLUE_INPUT:
+      return {
+        ...state,
+        newClue: action.payload,
+      };
+    case types.SET_CURRENT_CLUE:
+      return {
+        ...state,
+        currentClue: action.payload,
+        newClue: '',
+      };
     default:
       console.log('default reducer run');
       return state;
