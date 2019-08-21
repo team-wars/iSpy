@@ -1,15 +1,11 @@
 import React from 'react';
-import {
-  BrowserRouter as Router, Route, Link, Redirect,
-} from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ISpyContainer from './iSpyContainer';
 import FormContainer from './FormContainer';
 
-const mapPropsToState = (store) => ({
-  sessionID: store.game.sessionID,
-});
-const Dashboard = ({ sessionID }) => {
+const Dashboard = () => {
+  const { sessionID } = useSelector((store) => store.game);
   const routes = [
     {
       path: '/',
@@ -37,4 +33,4 @@ const Dashboard = ({ sessionID }) => {
   );
 };
 
-export default connect(mapPropsToState)(Dashboard);
+export default Dashboard;
