@@ -3,13 +3,13 @@ const db = require('../db/index');
 const genRoomID = () => {
   const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
-  for (let i = 4; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 4; i > 0; i -= 1) result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 };
 
 module.exports = {
   create(req, res) {
-    db.query('SELECT room FROM session ORDER BY room DESC LIMIT 1')
+    db.query('SELECT * FROM session ORDER BY id DESC LIMIT 1')
       .then((data) => {
         console.log('new session data ', data);
         console.log('type of data ', typeof data);
@@ -28,10 +28,10 @@ module.exports = {
           .then((result) => {
             console.log('result: ', result);
             res.locals.newRoom = roomID;
-            res.status(200).json({ currentSessionID: roomID });
+            res.status(200).json({ roomID });
           })
-          .catch(err => console.log('error inserting session: ', err));
+          .catch((err) => console.log('error inserting session: ', err));
       })
-      .catch(err => console.log('Error selecting from session: ', err));
+      .catch((err) => console.log('Error selecting from session: ', err));
   },
 };
