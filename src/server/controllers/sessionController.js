@@ -9,7 +9,9 @@ const genRoomID = () => {
 
 module.exports = {
   create(req, res) {
-    db.query('SELECT room FROM session ORDER BY room DESC LIMIT 1')
+    // changing query to find most recent ID and adding to the corresponding room
+    // ideally would change room column to be by INT, not by VARCHAR(4)
+    db.query('SELECT * FROM session ORDER BY id DESC LIMIT 1')
       .then((data) => {
         console.log('new session data ', data);
         console.log('type of data ', typeof data);

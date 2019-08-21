@@ -1,18 +1,15 @@
 import * as types from '../constants/ActionTypes';
 
-export const makeNewSessionAction = sessionID => ({
-  // THUNK BELOW
-  type: types.NEW_SESSION,
-  payload: { sessionID },
-});
-
-// THUNK FOR ABOVE
 // SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
 export const makeNewSession = () => dispatch => fetch('/api/session/create')
   .then(res => res.json())
   .then((data) => {
     console.log('got data back: ', data);
-    dispatch(makeNewSessionAction(data.currentSessionID));
+    // dispatch(makeNewSessionAction(data.currentSessionID));
+    dispatch({
+      type: types.NEW_SESSION,
+      payload: { sessionID: data.currentSessionID },
+    });
   })
   .catch(e => console.log('error caught: ', e));
 
