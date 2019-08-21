@@ -3,7 +3,7 @@ const db = require('../db/index');
 const genRoomID = () => {
   const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   let result = '';
-  for (let i = 4; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 4; i > 0; i -= 1) result += chars[Math.floor(Math.random() * chars.length)];
   return result;
 };
 
@@ -30,7 +30,7 @@ module.exports = {
           .then((result) => {
             console.log('result: ', result);
             res.locals.newRoom = roomID;
-            res.status(200).json({ currentSessionID: roomID });
+            res.status(200).json({ roomID });
           })
           .catch(err => console.log('error inserting session: ', err));
       })

@@ -6,6 +6,7 @@ const initialTeamObj = {
     {
       username: '',
       isSpyMaster: false,
+      ready: false,
     },
   ],
   wordsLeft: [],
@@ -17,7 +18,7 @@ const initialState = {
   redTeam: initialTeamObj,
   blueTeam: initialTeamObj,
   currUser: {
-    userName: 'Alfredo',
+    username: 'Alfredo',
     isSpyMaster: false,
     team: 'Blue',
   },
