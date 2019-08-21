@@ -1,10 +1,11 @@
 import React from 'react';
 
 const ClueDisplay = (props) => {
+  console.log('clue display props ', props)
   return (
     <section>
-      this.props.clue;
-      this.props.guesses;
+      {props.clue}
+      {props.guesses}
     </section>
   )
 };

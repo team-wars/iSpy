@@ -25,10 +25,15 @@ export const newClueInput = (newClue) => ({
   payload: newClue,
 });
 
-export const setCurrentClue = (clue) => ({
+export const setCurrentClue = (clue, guesses) => ({
   type: types.SET_CURRENT_CLUE,
-  payload: clue,
+  payload: { clue, guesses },
 });
+
+export const updateGuesses = (guesses) => ({
+  type: types.UPDATE_GUESSES,
+  payload: guesses,
+})
 
 // SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
 export const makeNewSession = () => (dispatch) => fetch('/api/session/create')

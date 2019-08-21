@@ -13,5 +13,6 @@ export const USER_LOGIN = 'USER_LOGIN';
 export const CREATE_USER = 'CREATE_USER';
 export const NEW_CLUE_INPUT = 'NEW_CLUE_INPUT';
 export const SET_CURRENT_CLUE = 'SET_CURRENT_CLUE';
+export const UPDATE_GUESSES = 'UPDATE_GUESSES';
 // TEST
 export const TEST = 'TEST';
