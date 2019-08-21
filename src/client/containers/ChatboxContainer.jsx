@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Chatbox from '../components/Chatbox.jsx';
 
 class ChatboxContainer extends Component {
   constructor(props) {
@@ -9,7 +10,10 @@ class ChatboxContainer extends Component {
 
   render() {
     return (
-      <section>This is the Chatbox Container</section>
+      <section className="chatbox-container">
+        <Chatbox />
+        This is the Chatbox Container
+      </section>
     );
   }
 }

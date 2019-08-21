@@ -1,0 +1,11 @@
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr .5fr;
+  grid-template-rows: auto auto auto auto auto auto;
+  grid-template-areas: 
+  "game-board game-board game-board game-board game-board chatbox-container"
+  "game-board game-board game-board game-board game-board chatbox-container"
+  "game-board game-board game-board game-board game-board chatbox-container"
+  "game-board game-board game-board game-board game-board chatbox-container"
+  "game-board game-board game-board game-board game-board chatbox-container";
+}

@@ -1,33 +1,38 @@
-const express = require('express');
+// const express = require('express');
 const path = require('path');
-const db = require('./db/index');
+// const sassMiddleware = require('node-sass-middleware');
+const express = require('express');
+const http = require('http');
+const socketIO = require('socket.io');
+const apiRouter = require('./routers/apiRouter');
 
 const app = express();
-const http = require('http').createServer(app);
-const io = require('socket.io')(http);
-
+const server = http.Server(app);
+const io = socketIO(server);
 const PORT = 3000;
+// app.use(sassMiddleware({
+//   /* Options */
+//   src: path.join(__dirname, '../stylesheet'),
+//   dest: path.join(__dirname, 'build'),
+//   debug: true,
+//   outputStyle: 'compressed',
+//   indentedSyntax: false,
+//   prefix: '/stylesheet', // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+// }), express.static(path.join(__dirname, 'build')));
 
-app.use('/static', express.static(path.join(__dirname, '../build')));
 
+app.use(express.json());
+app.use('/build', express.static(path.join(__dirname, '..', '..', 'build')));
+app.use('/api', apiRouter);
 app.get('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/index.html')));
-// res.send('hello world');
-// /api/session/new
-// /api/session/join/:sessionid
-// /api/game/pick-team
-// /api/game/start
-// /api/game/clue
-// /api/game/pick-tile
-io.on('connection', function(socket){
-  socket.broadcast.emit('user connected');
-  socket.on('msg',function(msg){
-    socket.broadcast.emit(`msg sent is ${msg}`)
-  })
-  socket.on('disconnect', function(){
-    socket.broadcast.emit('a user disconnected!');
-  })
+
+io.on('connection', (socket) => {
+  const room = socket.handshake.query.r_var;
+  socket.join(room);
+  socket.on('join session', (user) => {
+    console.log('recieved from client: ', user, room);
+    io.to(room).emit('joined', `${user} has joined room ${room}!`);
+  });
+
 });
-http.listen(PORT, function(){
-  console.log('listening on *:3000');
-});
-// app.listen(PORT, () => console.log(`Started listening to port ${PORT}`));
+server.listen(PORT, () => console.log(`Started listening to port ${PORT}`));

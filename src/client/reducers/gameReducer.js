@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes';
+import mockGameBoard from '../constants/mockGameBoard';
 
 const initialTeamObj = {
   members: [
@@ -16,26 +17,28 @@ const initialState = {
   redTeam: initialTeamObj,
   blueTeam: initialTeamObj,
   currUser: {
-    userName: '',
+    userName: 'Alfredo',
     isSpyMaster: false,
-    team: '',
+    team: 'Blue',
   },
-  gameBoard: [
-    {
-      word: '',
-      ID: '',
-      cardStatus: '',
-      team: ' ',
-    },
-  ],
+  gameBoard: mockGameBoard,
 };
 
 const gameReducer = (state = initialState, action) => {
+  // console.log(mockGameBoard);
   switch (action.type) {
+    case types.NEW_SESSION:
+      console.log('got a new session');
+      return {
+        ...state,
+        sessionID: action.payload.sessionID,
+      };
     case types.TEST:
-      alert(action.payload);
+      // alert(action.payload);
+      console.log('testing testing');
       return state;
     default:
+      console.log('reducer run');
       return state;
   }
 };

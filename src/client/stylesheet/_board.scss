@@ -1,7 +1,7 @@
 .game-board {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: auto auto auto auto auto;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr .5fr;
+  grid-template-rows: auto auto auto auto auto auto;
   grid-template-areas: 
   "row-1 row-1 row-1 row-1 row-1 chatbox-container"
   "row-2 row-2 row-2 row-2 row-2 chatbox-container"
@@ -9,13 +9,6 @@
   "row-4 row-4 row-4 row-4 row-4 chatbox-container"
   "row-5 row-5 row-5 row-5 row-5 chatbox-container";
 }
-
-.chatbox-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-area: chatbox-container;
-}
-
 
 .game-row {
   display: grid;
@@ -42,9 +35,11 @@
   grid-area: row-5;
 }
 
-.tile button {
+.tile {
+  button {
     background-color: skyblue;
     color: white;
-    width: 20%px;
+    width: 100%;
     height: 50px;
+  }
 }
