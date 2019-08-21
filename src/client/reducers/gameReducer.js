@@ -6,6 +6,7 @@ const initialTeamObj = {
     {
       username: '',
       isSpyMaster: false,
+      ready: false,
     },
   ],
   wordsLeft: [],
@@ -17,7 +18,7 @@ const initialState = {
   redTeam: initialTeamObj,
   blueTeam: initialTeamObj,
   currUser: {
-    userName: 'Alfredo',
+    username: 'Alfredo',
     isSpyMaster: false,
     team: 'Blue',
   },
@@ -28,7 +29,7 @@ const gameReducer = (state = initialState, action) => {
   // console.log(mockGameBoard);
   switch (action.type) {
     case types.NEW_SESSION:
-      console.log('got a new session');
+      console.log('got a new session', action.payload.sessionID);
       return {
         ...state,
         sessionID: action.payload.sessionID,
