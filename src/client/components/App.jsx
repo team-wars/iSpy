@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import io from 'socket.io-client';
-// import Board from './Board.jsx';
-import GameContainer from '../containers/GameContainer';
-// import ChatboxContainer from '../containers/ChatboxContainer.jsx';
-import ListContainer from '../containers/ListContainer';
-import SpymasterContainer from '../containers/SpymasterContainer';
+import Dashboard from '../containers/Dashboard';
 
 const App = () => {
   // const socket = io();
@@ -28,14 +25,18 @@ const App = () => {
   };
 
   return (
+    // <>
+    //   <input type="text" value={username} onChange={(e) => changeUser(e.target.value)} />
+    //   <input type="text" value={roomNum} onChange={(e) => changeRoom(e.target.value)} />
+    //   <button type="button" onClick={handleClick}>testing</button>
+    //   <button type="button" onClick={readyToggle}>Ready Up</button>
+    //   <GameContainer />
+    //   <ListContainer />
+    //   <SpymasterContainer />
     <>
-      <input type="text" value={username} onChange={(e) => changeUser(e.target.value)} />
-      <input type="text" value={roomNum} onChange={(e) => changeRoom(e.target.value)} />
-      <button type="button" onClick={handleClick}>testing</button>
-      <button type="button" onClick={readyToggle}>Ready Up</button>
-      <GameContainer />
-      <ListContainer />
-      <SpymasterContainer />
+      <Router>
+        <Dashboard />
+      </Router>
     </>
   );
 };
