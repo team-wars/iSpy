@@ -86,26 +86,26 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         gameBoard: action.payload,
       };
-    case types.NEW_CLUE_INPUT:
-      console.log('in new clue input');
-      return {
-        ...state,
-        newClue: action.payload,
-      };
-    case types.SET_CURRENT_CLUE:
-      console.log('set current clue');
-      return {
-        ...state,
-        currentClue: action.payload.clue,
-        guessesLeft: action.payload.guesses,
-        newClue: '',
-        newGuesses: 0,
-      };
-    case types.UPDATE_GUESSES:
-      return {
-        ...state,
-        newGuesses: action.payload,
-      };
+    // case types.NEW_CLUE_INPUT:
+    //   console.log('in new clue input');
+    //   return {
+    //     ...state,
+    //     newClue: action.payload,
+    //   };
+    // case types.SET_CURRENT_CLUE:
+    //   console.log('set current clue');
+    //   return {
+    //     ...state,
+    //     currentClue: action.payload.clue,
+    //     guessesLeft: action.payload.guesses,
+    //     newClue: '',
+    //     newGuesses: 0,
+    //   };
+    // case types.UPDATE_GUESSES:
+    //   return {
+    //     ...state,
+    //     newGuesses: action.payload,
+    //   };
     default:
       console.log('default reducer run');
       return state;
