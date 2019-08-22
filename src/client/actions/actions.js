@@ -59,6 +59,20 @@ export const newSession = (username) => (dispatch) => fetch('/api/session/create
 //   payload: 'filler',
 // });
 
+export const updateStores = (room) => (dispatch) => fetch(`/api/session/update-stores?room=${room}`)
+  .then((data) => data.json())
+  .then((json) => {
+    console.log('update stores data: ', json);
+    // const {
+    //   messages, blueTeam, redTeam, gameBoard,
+    // } = json;
+
+    dispatch({
+      type: types.UPDATE_STORES,
+      payload: json,
+    });
+  });
+
 export const joinSession = (roomID, username) => ({
   type: types.JOIN_SESSION,
   payload: { sessionID: roomID, username },
