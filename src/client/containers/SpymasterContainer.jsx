@@ -16,7 +16,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   // makeNewSession: () => dispatch(makeNewSession()),
   // joinSession: (currentSession, newUsername) => dispatch(joinSession(currentSession, newUsername)),
-  populateBoard: (sessionID) => dispatch(populateBoard()),
+  populateBoard: (sessionID) => dispatch(populateBoard(sessionID)),
   newClueInput: (text) => dispatch(newClueInput(text)),
   updateGuesses: (num) => dispatch(updateGuesses(num)),
   setCurrentClue: (text, num) => dispatch(setCurrentClue(text, num)),

@@ -52,6 +52,10 @@ module.exports = {
           .then(() => io.to(room).emit('new message', { username, text }))
           .catch((err) => console.log('error inserting message to DB: ', err));
       });
+      socket.on('tile picked', (obj) => {
+        // DB query
+        console.log('inside tile picked action, in backend');
+      });
     });
     server.listen(3000, () => console.log('Listening on port 3000'));
   },

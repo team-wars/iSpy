@@ -18,7 +18,8 @@ const mapDispatchToProps = (dispatch) => ({
     console.log('selectTile hit: ', clickedTileObj);
     // color being changed at tile level
     // clickedTileObj.className = `${affiliation}-tile-button`;
-    dispatch(selectTile(boardLocation, clickedTileObj));
+    dispatch(selectTile(boardLocation));
+    socket.emit('tile picked', { boardLocation });
   },
 });
 

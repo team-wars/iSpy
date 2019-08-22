@@ -63,13 +63,13 @@ module.exports = {
       let sqlValues = '';
       wordArray.forEach((word, i) => {
         word.location = i;
-        sqlValues += `(${word.id}, '${word.affiliation}', ${word.selected}, ${session_id}, ${word.location})`;
+        sqlValues += `(${word.id}, '${word.affiliation}', ${word.selected}, '${session_id}', ${word.location})`;
         // add comma if it's NOT the last item in the array
         if (i !== 24) { sqlValues += ','; }
       });
 
       // put words in board table
-      db.query(`INSERT INTO board (word_id,affiliation,selected,session_id,location) VALUES ${sqlValues}`, (error, ressy) => {
+      db.query(`INSERT INTO board (word_id,affiliation,selected,room,location) VALUES ${sqlValues}`, (error, ressy) => {
         if (error) {
           console.log('error in inserting words into board table ', error);
           return res.status(400).send('error starting game');
