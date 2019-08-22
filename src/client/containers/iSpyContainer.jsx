@@ -11,7 +11,7 @@ const iSpyContainer = () => {
     <>
       <p>{username}</p>
       <GameContainer />
-      {/* <ListContainer /> */}
+      <ListContainer />
       <SpymasterContainer />
     </>
   );
