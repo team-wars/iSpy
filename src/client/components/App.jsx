@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { newMessage } from '../actions/actions';
+import { newMessage, updateTeams } from '../actions/actions';
 import Dashboard from '../containers/Dashboard';
 
 // const readyToggle = () => {
@@ -19,9 +19,7 @@ const App = () => {
   if (socket) {
     const dispatch = useDispatch();
     socket.on('joined', (msg) => {
-      console.log(`${msg.user.username} has joined`);
-      console.log(msg);
-      // action goes here
+      dispatch(updateTeams(msg));
     });
 
     socket.on('new message', ({ username: user, text }) => {
