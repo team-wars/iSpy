@@ -24,11 +24,11 @@ const FormContainer = () => {
   return (
     <>
       Username:
-      <input type="text" value={username} onChange={(e) => changeUser(e.target.value)} />
+      <input id="username" type="text" value={username} onChange={(e) => changeUser(e.target.value)} />
       Room ID:
-      <input type="text" value={roomNum} onChange={(e) => changeRoom(e.target.value)} />
-      <button type="button" onClick={() => dispatch(joinSession(roomNum, username))}>Join</button>
-      <button type="button" onClick={() => dispatch(newSession(username))}>Create</button>
+      <input id="roomID" type="text" value={roomNum} onChange={(e) => changeRoom(e.target.value)} />
+      <button id="Buttjoin" type="button" onClick={() => dispatch(joinSession(roomNum, username))}>Join</button>
+      <button id="Buttcreate" type="button" onClick={() => dispatch(newSession(username))}>Create</button>
       {/* <button type="button" onClick={readyToggle}>Ready Up</button> */}
     </>
   );

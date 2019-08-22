@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 
 describe('testing FormContainer Rendering', () => {
   it('should render a List Component!', () => {
-    const wrapper = shallow(<List />);
+    const wrapper = shallow(<List list={['ro', 'roc', 'rock']} color="blue" listType="team" />);
     expect(wrapper.exists()).toBe(true);
   });
 });
