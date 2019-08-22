@@ -76,10 +76,12 @@ export const endGame = () => ({
   payload: 'filler',
 });
 
-export const selectTile = () => ({
+export const selectTile = (boardLocation, clickedTileObj) => ({
   // NEED A THUNK
   type: types.SELECT_TILE,
-  payload: 'filler',
+  payload: {
+    boardLocation,
+  },
 });
 
 export const changeTurn = () => ({

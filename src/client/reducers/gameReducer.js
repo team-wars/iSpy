@@ -8,7 +8,7 @@ const initialTeamObj = {
 
 const initialState = {
   sessionID: null,
-  isRedTurn: true,
+  isBlueTurn: true,
   redTeam: initialTeamObj,
   blueTeam: initialTeamObj,
   currUser: {
@@ -67,6 +67,14 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         gameBoard: action.payload,
+      };
+    case types.SELECT_TILE:
+      const newGameBoard = JSON.parse(JSON.stringify(state.gameBoard));
+      newGameBoard[action.payload.boardLocation].selected = true;
+      return {
+        ...state,
+        // isBlueTurn: true,
+        gameBoard: newGameBoard,
       };
     default:
       console.log('default reducer run');

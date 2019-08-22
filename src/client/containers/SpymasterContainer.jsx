@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { populateBoard, newClueInput, updateGuesses, setCurrentClue } from '../actions/actions';
+import { populateBoard, setCurrentClue } from '../actions/actions';
 
 
 // FOR TESTING
