@@ -61,4 +61,32 @@ module.exports = {
         .catch((err) => console.log('error inserting session: ', err));
     }
   },
+  getData(req, res) {
+    const room = req.url.split('=')[1];
+    console.log(room);
+    const queryArr = [
+      db.query(`SELECT board.selected,board.affiliation,board.location,dictionary.word
+      FROM board
+      INNER JOIN dictionary
+      ON board.word_id = dictionary.id
+      WHERE board.room='${room}'
+      ORDER BY board.location ASC`),
+      db.query(`SELECT * FROM messages WHERE room='${room}'`),
+      db.query(`SELECT * FROM "user" WHERE room='${room}'`),
+      db.query(`SELECT * FROM session WHERE room='${room}'`),
+    ];
+    Promise.all(queryArr)
+      .then((data) => {
+        // const rows = data.map((cv) => cv.rows);
+        const toSend = {
+          redTeam: data[2].rows.filter((cv) => cv.team === 'red').map((cv) => ({ username: cv.username, spymaster: cv.spymaster, ready: cv.ready })),
+          blueTeam: data[2].rows.filter((cv) => cv.team === 'blue').map((cv) => ({ username: cv.username, spymaster: cv.spymaster, ready: cv.ready })),
+          messages: data[1].rows.map((cv) => ({ user: cv.username, text: cv.text })),
+          gameBoard: data[0].rows,
+        };
+        // console.log(toSend);
+        return res.status(200).json(toSend);
+      })
+      .catch((err) => console.log('error in getDATA: ', err));
+  },
 };
