@@ -27,25 +27,55 @@ const mapDispatchToProps = (dispatch) => ({
 class SpymasterContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      newClue: '',
+      newGuesses: '',
+    };
+
+    this.handleNewClue = this.handleNewClue.bind(this);
+    this.handleNewGuesses = this.handleNewGuesses.bind(this);
+
     // anymore methods, add here
   }
 
+  handleNewClue(newClueInput) {
+    // const newClueInput = event.target.value;
+    this.setState({
+      ...this.state,
+      newClue: newClueInput,
+    })
+  }
+
+  handleNewGuesses(newGuessesInput) {
+    // const newGuessesInput = event.target.value;
+    this.setState({
+      ...this.state,
+      newGuesses: newGuessesInput,
+    })
+  }
+
   render() {
-    const { sessionID, populateBoard, newClueInput, updateGuesses, setCurrentClue, newClue, newGuesses } = this.props;
+    const { sessionID, populateBoard, setCurrentClue } = this.props;
     return (
       <section>This is the Spymaster Container
         <form onSubmit={() => {
           event.preventDefault();
-          setCurrentClue(newClue, newGuesses);
+          setCurrentClue(this.state.newClue, this.state.newGuesses);
+          this.setState({
+            ...this.state,
+            newClue: '',
+            newGuesses: '',
+          })
         }}>
           <input type="text" placeholder="Enter New Clue" onChange={(e) => {
             const clue = e.target.value;
-            newClueInput(clue);
+            this.handleNewClue(clue);
+            // newClueInput(clue);
           }} />
           <input type="number" placeholder="# of Words" onChange={(e) => {
             const guesses = e.target.value;
-            updateGuesses(guesses);
+            this.handleNewGuesses(guesses);
+            // updateGuesses(guesses);
           }} />
           <input type="submit" value="submit" />
         </form>
