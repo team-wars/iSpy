@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { newSession, joinSession } from '../actions/actions';
+import { newSession, joinSession, updateStores } from '../actions/actions';
 
 // const mapDispatchToProps = (dispatch) => ({
 //   updateSessionID: (sessionID) => dispatch(makeNewSessionAction(sessionID)),
@@ -27,7 +27,10 @@ const FormContainer = () => {
       <input type="text" value={username} onChange={(e) => changeUser(e.target.value)} />
       Room ID:
       <input type="text" value={roomNum} onChange={(e) => changeRoom(e.target.value)} />
-      <button type="button" onClick={() => dispatch(joinSession(roomNum, username))}>Join</button>
+      <button type="button" onClick={() => {
+        dispatch(joinSession(roomNum, username));
+        dispatch(updateStores(roomNum));
+      }}>Join</button>
       <button type="button" onClick={() => dispatch(newSession(username))}>Create</button>
       {/* <button type="button" onClick={readyToggle}>Ready Up</button> */}
     </>
