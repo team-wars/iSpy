@@ -1,23 +1,30 @@
-import React from 'react';
-import { useSelector } from 'react-redux'
-const Chatbox = (props) => {
-  // let {messages} = useSelector((store)=>store.game)
-  handleKeyPress(){
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import Message from './Message';
+
+const Chatbox = () => {
+  const {
+    messages, currUser: { username },
+  } = useSelector((store) => store.game);
+  const { socket } = useSelector((store) => store.socket);
+
+  const [text, setText] = useState('');
+  const handleKeyPress = (event) => {
     // if enter, do the emitting shit
-    if (event.keyCode === 13) {
-      const userMsg = event.target.value;
+    if (event.keyCode === 13 && text.length > 0) {
+      console.log('EMITTING MESSAGE');
+      socket.emit('message', { text, username });
+      setText('');
     }
   };
-  const messageArr = [];
-  for(const msgObj of messages){
-    messageArr.push(<Message text={msgObj.text} user={msgObj.user}/>)
-  }
+  const messageArr = messages.map((msgObj) => <Message text={msgObj.text} username={msgObj.user} />);
+
   return (
     <section>
-      <div id='messageContainer'>
+      <div id="messageContainer">
         {messageArr}
       </div>
-      <input onKeyDown={handleKeyPress} />
+      <input onKeyUp={handleKeyPress} value={text} onChange={(e) => setText(e.target.value)} />
     </section>
   );
 };
