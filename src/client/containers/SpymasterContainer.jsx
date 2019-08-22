@@ -39,7 +39,7 @@ class SpymasterContainer extends Component {
           event.preventDefault();
           setCurrentClue(newClue, newGuesses);
         }}>
-          <input type="text" placeholder="Enter New Clue" value={newClue} onChange={(e) => {
+          <input type="text" placeholder="Enter New Clue" onChange={(e) => {
             const clue = e.target.value;
             newClueInput(clue);
           }} />
