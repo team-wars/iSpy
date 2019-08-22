@@ -16,12 +16,6 @@ module.exports = {
       db.query('SELECT * FROM session')
         .then((data) => {
           data.rows.forEach(({ room }) => { cache[room] = true; });
-          // for (const row of data.rows) {
-          //   const { room } = row;
-          //   cache[room] = true;
-          // }
-
-
           let roomID = genRoomID();
           while (roomID in cache) {
             roomID = genRoomID();
