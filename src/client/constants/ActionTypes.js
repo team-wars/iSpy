@@ -1,5 +1,6 @@
 export const NEW_SESSION = 'NEW_SESSION';
 export const JOIN_SESSION = 'JOIN_SESSION';
+export const UPDATE_TEAMS = 'UPDATE_TEAMS';
 export const START_GAME = 'START_GAME';
 export const END_GAME = 'END_GAME';
 export const SELECT_TILE = 'SELECT_TILE';
