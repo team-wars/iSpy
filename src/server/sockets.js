@@ -27,7 +27,7 @@ module.exports = {
               .then(() => {
                 io.to(room).emit('joined', {
                   user: {
-                    username, isSpyMaster: spymaster, team, ready: false,
+                    username, isSpyMaster: spymaster, ready: false,
                   },
                   teamKey: `${team}Team`,
                 });
