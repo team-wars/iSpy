@@ -68,6 +68,13 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         gameBoard: action.payload,
       };
+    case types.SET_CURRENT_CLUE:
+      console.log('set current clue, game reducer');
+      return {
+        ...state,
+        currentClue: action.payload.clue,
+        guessesLeft: action.payload.guesses,
+      };
     case types.SELECT_TILE:
       const newGameBoard = JSON.parse(JSON.stringify(state.gameBoard));
       newGameBoard[action.payload.boardLocation].selected = true;

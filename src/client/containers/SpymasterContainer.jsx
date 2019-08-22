@@ -10,8 +10,6 @@ const mapStateToProps = (state) => {
   console.log('in map state to props, ', state);
   return {
     sessionID: state.game.sessionID,
-    newClue: state.clue.newClue,
-    newGuesses: state.clue.newGuesses,
   };
 };
 

@@ -22,8 +22,6 @@ const clueReducer = (state = initialState, action) => {
         ...state,
         currentClue: action.payload.clue,
         guessesLeft: action.payload.guesses,
-        // newClue: '',
-        // newGuesses: 0,
       };
     case types.SELECT_TILE:
     // case types.UPDATE_GUESSES:
