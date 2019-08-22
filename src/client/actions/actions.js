@@ -75,10 +75,10 @@ export const submitClue = () => ({
   payload: 'filler',
 });
 
-export const submitMessage = () => ({
+export const newMessage = (payload) => ({
   // NEED A THUNK
-  type: types.SUBMIT_MESSAGE,
-  payload: 'filler',
+  type: types.NEW_MESSAGE,
+  payload,
 });
 
 export const loadMessages = () => ({
