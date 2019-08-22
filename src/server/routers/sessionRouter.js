@@ -3,5 +3,6 @@ const { create } = require('../controllers/sessionController');
 
 const sessionRouter = express.Router();
 
-sessionRouter.get('/create', create);
+// SHOULD THIS BE A POST REQ? WHEN DOES THE VERY FIRST PERSON ENTER THEIR NAME?
+sessionRouter.post('/create', create);
 module.exports = sessionRouter;

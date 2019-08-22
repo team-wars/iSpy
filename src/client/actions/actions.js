@@ -1,15 +1,48 @@
 import * as types from '../constants/ActionTypes';
 
-export const makeNewSession = () => ({
-  // NEED A THUNK
-  type: types.NEW_SESSION,
-  payload: 'filler',
-});
+// populateBoard thunk
+export const populateBoard = () => (dispatch) => fetch('/api/game/start', {
+  method: 'POST',
+  headers: {
+    'content-type': 'application/json',
+  },
+  body: JSON.stringify({ session_id: 1 }),
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log('this is my data! ', data);
+  })
+  .catch((err) => {
+    console.log('error in populateBoard fetch ', err);
+  });
 
-export const joinSession = () => ({
-  // NEED A THUNK
+// SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
+export const newSession = (username) => (dispatch) => fetch('/api/session/create', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ username }),
+})
+  .then((res) => res.json())
+  .then((data) => {
+    console.log('got data back: ', data);
+    dispatch({
+      type: types.NEW_SESSION,
+      payload: { sessionID: data.roomID, username },
+    });
+  })
+  .catch((e) => console.log('error caught: ', e));
+
+// export const joinSessionAction = () => ({
+//   // NEED A THUNK
+//   type: types.JOIN_SESSION,
+//   payload: 'filler',
+// });
+
+export const joinSession = (roomID, username) => ({
   type: types.JOIN_SESSION,
-  payload: 'filler',
+  payload: { sessionID: roomID, username },
 });
 
 export const startGame = () => ({
@@ -69,7 +102,7 @@ export const createUser = () => ({
 });
 
 // TEST
-export const testFunc = testMsg => ({
+export const testFunc = (testMsg) => ({
   type: types.TEST,
   payload: testMsg,
 });
