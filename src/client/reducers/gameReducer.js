@@ -32,7 +32,7 @@ const initialState = {
 const gameReducer = (state = initialState, action) => {
   // console.log(mockGameBoard);
   // console.log('inside reducer');
-  console.log('action is ', action)
+  console.log('action is ', action);
   switch (action.type) {
     case types.NEW_SESSION:
       console.log('got a new session');
@@ -65,6 +65,7 @@ const gameReducer = (state = initialState, action) => {
         guessesLeft: action.payload.guesses,
       };
     case types.UPDATE_GUESSES:
+      console.log('updating guesses: ', action);
       return {
         ...state,
         newGuesses: action.payload,

@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
   joinSession: (currentSession, newUsername) => dispatch(joinSession(currentSession, newUsername)),
   populateBoard: () => dispatch(populateBoard()),
   newClueInput: (text) => dispatch(newClueInput(text)),
-  setCurrentClue: (text) => dispatch(setCurrentClue(text)),
+  setCurrentClue: (text, num) => dispatch(setCurrentClue(text, num)),
   updateGuesses: (text) => dispatch(updateGuesses(text)),
 });
 
@@ -33,7 +33,7 @@ class SpymasterContainer extends Component {
 
   render() {
     const {
-      makeNewSession, sessionID, joinSession, populateBoard, newClue, newClueInput, setCurrentClue, newGuesses
+      makeNewSession, sessionID, joinSession, populateBoard, newClue, newClueInput, setCurrentClue, newGuesses, updateGuesses
     } = this.props;
     return (
 
@@ -48,6 +48,7 @@ class SpymasterContainer extends Component {
           }} />
           <input type="number" placeholder="number" onChange={(e) => {
             const guesses = e.target.value;
+            console.log('new guesses incoming, on change: ', guesses)
             updateGuesses(guesses);
           }}/>
           <input type="submit" value="submit" />
