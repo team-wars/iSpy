@@ -28,6 +28,11 @@ const App = () => {
       console.log(`${user}: ${text}`);
       dispatch(newMessage({ user, text }));
     });
+
+    socket.on('tile picked', (someObj) => {
+      console.log('a tile has been picked');
+      dispatch(test());
+    });
   }
 
   return (
