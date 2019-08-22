@@ -47,6 +47,11 @@ module.exports = {
             io.to(room).emit('ready changed', { username, ready: data.rows[0].ready });
           });
       });
+      socket.on('message', ({ text, username }) => {
+        db.query('INSERT INTO messages(room, username, text) VALUES($1, $2, $3)', [room, username, text])
+          .then(() => io.to(room).emit('new message', { username, text }))
+          .catch((err) => console.log('error inserting message to DB: ', err));
+      });
     });
     server.listen(3000, () => console.log('Listening on port 3000'));
   },

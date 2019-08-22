@@ -11,9 +11,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   test: (testMsg) => dispatch(testFunc(testMsg)),
-  selectTile: () => {
+  selectTile: (affiliation) => {
     const synthEvent = event.target;
     console.log('selectTile hit: ', synthEvent);
+    synthEvent.className = `${affiliation}-tile-button`;
     dispatch(selectTile());
   },
 });

@@ -1,15 +1,8 @@
-import io from 'socket.io-client';
 import * as types from '../constants/ActionTypes';
 import mockGameBoard from '../constants/mockGameBoard';
 
 const initialTeamObj = {
-  members: [
-    // {
-    //   username: '',
-    //   isSpyMaster: false,
-    //   ready: false,
-    // },
-  ],
+  members: [],
   wordsLeft: [],
 };
 
@@ -24,12 +17,17 @@ const initialState = {
     team: 'blue',
   },
   gameBoard: mockGameBoard,
-  socket: null,
+  messages: [],
+  currentClue: '',
+  guessesLeft: 0,
+  // newGuesses: 0,
+  // newClue: '',
 };
 
 const gameReducer = (state = initialState, action) => {
   // console.log(mockGameBoard);
   // console.log('inside reducer');
+  console.log('action is ', action);
   switch (action.type) {
     case types.NEW_SESSION: {
       console.log('got a new session', action.payload.sessionID);
@@ -39,9 +37,6 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         sessionID,
         currUser: { username, isSpyMaster: true, team: 'blue' },
-        socket: io('localhost:3000', {
-          query: `r_var=${sessionID}`,
-        }),
         blueTeam: {
           ...state.blueTeam,
           members: [...state.blueTeam.members, { username, isSpyMaster: true, ready: false }],
@@ -49,33 +44,30 @@ const gameReducer = (state = initialState, action) => {
       };
     }
     case types.JOIN_SESSION: {
-      console.log('joining session');
       const { sessionID, username } = action.payload;
-      const socket = io('localhost:3000', {
-        query: `r_var=${sessionID}`,
-      });
-      socket.emit('join session', username);
       const redCount = state.redTeam.members.length;
       const blueCount = state.redTeam.members.length;
       const team = blueCount > redCount ? 'red' : 'blue';
       const teamKey = `${team}Team`;
       const isSpyMaster = redCount === 0;
-      console.log('emitted join');
       return {
         ...state,
         sessionID,
         currUser: { username, isSpyMaster, team },
-        socket,
         [teamKey]: {
           ...state[teamKey],
           members: [...state[teamKey].members, { username, isSpyMaster, ready: false }],
         },
       };
     }
-    case types.TEST:
-      // alert(action.payload);
-      console.log('testing testing');
-      return state;
+    case types.NEW_MESSAGE:
+      return { ...state, messages: [...state.messages, action.payload] };
+
+    case types.POPULATE_BOARD:
+      return {
+        ...state,
+        gameBoard: action.payload,
+      };
     default:
       console.log('default reducer run');
       return state;
