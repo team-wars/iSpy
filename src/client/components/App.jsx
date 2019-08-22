@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { newMessage, updateTeams } from '../actions/actions';
+import { newMessage, updateTeams, selectTile } from '../actions/actions';
 import Dashboard from '../containers/Dashboard';
 
 // const readyToggle = () => {
@@ -25,6 +25,12 @@ const App = () => {
     socket.on('new message', ({ username: user, text }) => {
       console.log(`${user}: ${text}`);
       dispatch(newMessage({ user, text }));
+    });
+
+    socket.on('tile picked', (someObj) => {
+      console.log('a tile has been picked');
+      // dispatch(test());
+      dispatch(selectTile(boardLocation));
     });
   }
 

@@ -2,12 +2,12 @@ import React from 'react';
 
 const Tile = (props) => {
   const {
-    testClick, word, affiliation, selectTile,
+    word, affiliation, selectTile, boardLocation, selected
   } = props;
 
   return (
     <article className="tile">
-      <button className="unselected-tile-button" onClick={() => selectTile(affiliation)} fakeOnClick={testClick} type="button">{word}</button>
+      <button className={selected ? `${affiliation}-tile-button` : "unselected-tile-button"} onClick={() => selectTile(affiliation, boardLocation)} type="button">{word}</button>
     </article>
   );
 };

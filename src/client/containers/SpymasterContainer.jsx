@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { populateBoard, newClueInput, updateGuesses, setCurrentClue } from '../actions/actions';
+import { populateBoard, setCurrentClue } from '../actions/actions';
 
 
 // FOR TESTING
@@ -10,15 +10,13 @@ const mapStateToProps = (state) => {
   console.log('in map state to props, ', state);
   return {
     sessionID: state.game.sessionID,
-    newClue: state.clue.newClue,
-    newGuesses: state.clue.newGuesses,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   // makeNewSession: () => dispatch(makeNewSession()),
   // joinSession: (currentSession, newUsername) => dispatch(joinSession(currentSession, newUsername)),
-  populateBoard: (sessionID) => dispatch(populateBoard()),
+  populateBoard: (sessionID) => dispatch(populateBoard(sessionID)),
   newClueInput: (text) => dispatch(newClueInput(text)),
   updateGuesses: (num) => dispatch(updateGuesses(num)),
   setCurrentClue: (text, num) => dispatch(setCurrentClue(text, num)),
