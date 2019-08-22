@@ -14,10 +14,10 @@ import Dashboard from '../containers/Dashboard';
 // };
 
 const App = () => {
+  const dispatch = useDispatch();
   const { socket } = useSelector((store) => store.socket);
   // socket.emit('join session', username);
   if (socket) {
-    const dispatch = useDispatch();
     socket.on('joined', (msg) => {
       dispatch(updateTeams(msg));
     });

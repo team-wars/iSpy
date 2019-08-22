@@ -3,7 +3,7 @@ import mockGameBoard from '../constants/mockGameBoard';
 
 const initialTeamObj = {
   members: [],
-  wordsLeft: [],
+  wordsLeft: 0,
 };
 
 const initialState = {
@@ -30,9 +30,7 @@ const gameReducer = (state = initialState, action) => {
   console.log('action is ', action);
   switch (action.type) {
     case types.NEW_SESSION: {
-      console.log('got a new session', action.payload.sessionID);
       const { sessionID, username } = action.payload;
-      console.log('inside new session reducer, ', username);
       return {
         ...state,
         sessionID,
@@ -44,12 +42,15 @@ const gameReducer = (state = initialState, action) => {
       };
     }
     case types.JOIN_SESSION: {
+      // return { sessionID: action.payload.sessionID, username: action.payload.username };
       const { sessionID, username } = action.payload;
       const redCount = state.redTeam.members.length;
-      const blueCount = state.redTeam.members.length;
+      const blueCount = state.blueTeam.members.length;
       const team = blueCount > redCount ? 'red' : 'blue';
       const teamKey = `${team}Team`;
       const isSpyMaster = redCount === 0;
+      console.log('payload in JOIN_SESSION', action.payload);
+      console.log('isSpymaster: ', isSpyMaster);
       return {
         ...state,
         sessionID,
@@ -60,6 +61,22 @@ const gameReducer = (state = initialState, action) => {
         },
       };
     }
+
+    case types.UPDATE_STORES:
+      console.log('************', action.payload.redTeam.length);
+      return {
+        ...state,
+        messages: [...action.payload.messages],
+        gameBoard: action.payload.gameBoard.length ? [...action.payload.gameBoard] : [...state.gameBoard],
+        redTeam: { members: [...action.payload.redTeam], wordsLeft: action.payload.gameBoard.filter((cv) => cv.affiliation === 'red').length },
+        blueTeam: { members: [...action.payload.blueTeam], wordsLeft: action.payload.gameBoard.filter((cv) => cv.affiliation === 'blue').length },
+        currUser: {
+          ...state.currUser,
+          isSpyMaster: action.payload.redTeam.length === 0,
+          // team: action.payload.redTeam.length === action.payload.blueTeam.length ? 'red' : 'blue',
+        },
+
+      };
     case types.NEW_MESSAGE:
       return { ...state, messages: [...state.messages, action.payload] };
 
@@ -75,7 +92,7 @@ const gameReducer = (state = initialState, action) => {
         currentClue: action.payload.clue,
         guessesLeft: action.payload.guesses,
       };
-    case types.SELECT_TILE:
+    case types.SELECT_TILE: {
       const newGameBoard = JSON.parse(JSON.stringify(state.gameBoard));
       newGameBoard[action.payload.boardLocation].selected = true;
       return {
@@ -84,6 +101,7 @@ const gameReducer = (state = initialState, action) => {
         guessesLeft: state.guessesLeft - 1 >= 0 ? state.guessesLeft - 1 : 0,
         gameBoard: newGameBoard,
       };
+    }
     case types.UPDATE_TEAMS:
       return {
         ...state,
