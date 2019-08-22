@@ -5,7 +5,7 @@ export const END_GAME = 'END_GAME';
 export const SELECT_TILE = 'SELECT_TILE';
 export const CHANGE_TURN = 'CHANGE_TURN';
 export const SUBMIT_CLUE = 'SUBMIT_CLUE';
-export const SUBMIT_MESSAGE = 'SUBMIT_MESSAGE';
+export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const LOAD_MESSAGES = 'LOAD_MESSAGES';
 export const POPULATE_BOARD = 'POPULATE_BOARD';
 // below two might not be needed unless we have a PW login

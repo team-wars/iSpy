@@ -1,38 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import io from 'socket.io-client';
+import { useDispatch, useSelector } from 'react-redux';
+import { newMessage } from '../actions/actions';
 import Dashboard from '../containers/Dashboard';
 
+// const readyToggle = () => {
+//   const Connect = (room) => io('localhost:3000', {
+//     query: `r_var=${room}`,
+//   });
+//   const  = Connect(roomNum);
+//   .emit('ready', username);
+//   .on('ready changed', (msg) => console.log(msg));
+// };
+
 const App = () => {
-  // const socket = io();
-  const [roomNum, changeRoom] = useState('');
-  const [username, changeUser] = useState('');
-  const handleClick = () => {
-    const socketConnect = (room) => io('localhost:3000', {
-      query: `r_var=${room}`,
+  const { socket } = useSelector((store) => store.socket);
+  // socket.emit('join session', username);
+  if (socket) {
+    const dispatch = useDispatch();
+    socket.on('joined', (msg) => {
+      console.log(`${msg.user.username} has joined`);
+      console.log(msg);
+      // action goes here
     });
-    const socket = socketConnect(roomNum);
-    socket.emit('join session', username);
-    socket.on('joined', (msg) => console.log(msg));
-  };
-  const readyToggle = () => {
-    const socketConnect = (room) => io('localhost:3000', {
-      query: `r_var=${room}`,
+
+    socket.on('new message', ({ username: user, text }) => {
+      console.log(`${user}: ${text}`);
+      dispatch(newMessage({ user, text }));
     });
-    const socket = socketConnect(roomNum);
-    socket.emit('ready', username);
-    socket.on('ready changed', (msg) => console.log(msg));
-  };
+  }
 
   return (
-    // <>
-    //   <input type="text" value={username} onChange={(e) => changeUser(e.target.value)} />
-    //   <input type="text" value={roomNum} onChange={(e) => changeRoom(e.target.value)} />
-    //   <button type="button" onClick={handleClick}>testing</button>
-    //   <button type="button" onClick={readyToggle}>Ready Up</button>
-    //   <GameContainer />
-    //   <ListContainer />
-    //   <SpymasterContainer />
     <>
       <Router>
         <Dashboard />
@@ -40,5 +38,4 @@ const App = () => {
     </>
   );
 };
-
 export default App;
