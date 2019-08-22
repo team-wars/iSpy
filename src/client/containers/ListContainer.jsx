@@ -6,8 +6,8 @@ const ListContainer = () => {
   const { blueTeam, redTeam } = useSelector((store) => store.game);
   return (
     <section>
-      <List list={blueTeam} type="team" color="blue" />
-      <List list={redTeam} type="team" color="red" />
+      <List list={blueTeam.members} type="team" color="blue" />
+      <List list={redTeam.members} type="team" color="red" />
     </section>
   );
 };
