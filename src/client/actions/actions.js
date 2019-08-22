@@ -20,6 +20,11 @@ export const populateBoard = (sessionID) => (dispatch) => fetch('/api/game/start
     console.log('error in populateBoard fetch ', err);
   });
 
+export const populateBoardSocket = (newBoard) => ({
+  type: types.POPULATE_BOARD,
+  payload: newBoard,
+});
+
 // export const newClueInput = (newClue) => ({
 //   type: types.NEW_CLUE_INPUT,
 //   payload: newClue,
@@ -80,7 +85,7 @@ export const endGame = () => ({
   payload: 'filler',
 });
 
-export const selectTile = (boardLocation, clickedTileObj) => ({
+export const selectTile = (boardLocation) => ({
   // NEED A THUNK
   type: types.SELECT_TILE,
   payload: {
