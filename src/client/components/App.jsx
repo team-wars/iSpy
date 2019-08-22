@@ -27,7 +27,7 @@ const App = () => {
       dispatch(newMessage({ user, text }));
     });
 
-    socket.on('tile picked', (someObj) => {
+    socket.on('tile selected', ({affiliation, boardLocation}) => {
       console.log('a tile has been picked');
       // dispatch(test());
       dispatch(selectTile(boardLocation));

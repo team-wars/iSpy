@@ -81,7 +81,7 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         // isBlueTurn: true,
-        guessesLeft: state.guessesLeft - 1,
+        guessesLeft: state.guessesLeft - 1 >= 0 ? state.guessesLeft - 1 : 0,
         gameBoard: newGameBoard,
       };
     case types.UPDATE_TEAMS:

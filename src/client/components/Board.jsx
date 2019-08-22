@@ -7,6 +7,7 @@ import { testFunc, selectTile } from '../actions/actions';
 
 const mapStateToProps = (state) => ({
   gameBoard: state.game.gameBoard,
+  sessionID: state.game.sessionID,
   socket: state.socket.socket,
 });
 
@@ -19,7 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
     // color being changed at tile level
     // clickedTileObj.className = `${affiliation}-tile-button`;
     dispatch(selectTile(boardLocation));
-    socket.emit('tile picked', { boardLocation });
+    socket.emit('tile clicked', { boardLocation });
   },
 });
 
@@ -28,10 +29,15 @@ class Board extends Component {
     super(props);
     this.state = {};
     // anymore methods, add here
+    this.handleTileClick = this.handleTileClick.bind(this);
+  }
+
+  handleTileClick(socket, sessionID, affiliation, boardLocation) {
+    socket.emit('tile clicked', { sessionID, affiliation, boardLocation });
   }
 
   render() {
-    const { test, gameBoard, selectTile, socket } = this.props;
+    const { test, gameBoard, selectTile, socket, sessionID } = this.props;
     console.log('this is gameboard: ', gameBoard);
     return (
       <>
@@ -40,19 +46,19 @@ class Board extends Component {
           {gameBoard && (
             <>
               <section className="game-row" id="row-1">
-                {gameBoard.slice(0, 5).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 0))} selected={el.selected} boardLocation={idx + (5 * 0)} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={selectTile} />)}
+                {gameBoard.slice(0, 5).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 0))} selected={el.selected} boardLocation={idx + (5 * 0)} sessionID={sessionID} socket={socket} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={this.handleTileClick} />)}
               </section>
               <section className="game-row" id="row-2">
-                {gameBoard.slice(5, 10).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 1))} selected={el.selected} boardLocation={idx + (5 * 1)} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={selectTile} />)}
+                {gameBoard.slice(5, 10).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 1))} selected={el.selected} boardLocation={idx + (5 * 1)} sessionID={sessionID} socket={socket} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={this.handleTileClick} />)}
               </section>
               <section className="game-row" id="row-3">
-                {gameBoard.slice(10, 15).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 2))} selected={el.selected} boardLocation={idx + (5 * 2)} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={selectTile} />)}
+                {gameBoard.slice(10, 15).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 2))} selected={el.selected} boardLocation={idx + (5 * 2)} sessionID={sessionID} socket={socket} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={this.handleTileClick} />)}
               </section>
               <section className="game-row" id="row-4">
-                {gameBoard.slice(15, 20).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 3))} selected={el.selected} boardLocation={idx + (5 * 3)} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={selectTile} />)}
+                {gameBoard.slice(15, 20).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 3))} selected={el.selected} boardLocation={idx + (5 * 3)} sessionID={sessionID} socket={socket} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={this.handleTileClick} />)}
               </section>
               <section className="game-row" id="row-5">
-                {gameBoard.slice(20, 25).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 4))} selected={el.selected} boardLocation={idx + (5 * 4)} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={selectTile} />)}
+                {gameBoard.slice(20, 25).map((el, idx) => <Tile key={'word-tile-' + (idx + (5 * 4))} selected={el.selected} boardLocation={idx + (5 * 4)} sessionID={sessionID} socket={socket} wordId={el.id} word={el.word} affiliation={el.affiliation} selectTile={this.handleTileClick} />)}
               </section>
             </>
           )}
