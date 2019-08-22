@@ -10,6 +10,7 @@ const mapStateToProps = (state) => {
   console.log('in map state to props, ', state);
   return {
     sessionID: state.game.sessionID,
+    socket: state.socket.socket,
   };
 };
 
@@ -32,8 +33,13 @@ class SpymasterContainer extends Component {
 
     this.handleNewClue = this.handleNewClue.bind(this);
     this.handleNewGuesses = this.handleNewGuesses.bind(this);
+    this.handleBoardPopulate = this.handleBoardPopulate.bind(this);
 
     // anymore methods, add here
+  }
+
+  handleBoardPopulate(socket, sessionID) {
+    socket.emit('request new board', { sessionID });
   }
 
   handleNewClue(newClueInput) {
@@ -53,7 +59,7 @@ class SpymasterContainer extends Component {
   }
 
   render() {
-    const { sessionID, populateBoard, setCurrentClue } = this.props;
+    const { sessionID, populateBoard, setCurrentClue, socket } = this.props;
     return (
       <section>This is the Spymaster Container
         <form onSubmit={() => {
@@ -78,7 +84,7 @@ class SpymasterContainer extends Component {
           <input type="submit" value="submit" />
         </form>
         {/* <LandingPageButton buttonName="Start Session" buttonFunction={makeNewSession} /> */}
-        <LandingPageButton buttonName="Populate Board" buttonFunction={() => populateBoard(sessionID)} />
+        <LandingPageButton buttonName="Populate Board" buttonFunction={() => this.handleBoardPopulate(socket, sessionID)} />
         {/* <LandingPageButton buttonName="Join Session" buttonFunction={() => joinSession(sessionID, 'Will')} /> */}
       </section>
     );

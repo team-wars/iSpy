@@ -20,6 +20,11 @@ export const populateBoard = (sessionID) => (dispatch) => fetch('/api/game/start
     console.log('error in populateBoard fetch ', err);
   });
 
+export const populateBoardSocket = (newBoard) => ({
+  type: types.POPULATE_BOARD,
+  payload: newBoard,
+});
+
 // export const newClueInput = (newClue) => ({
 //   type: types.NEW_CLUE_INPUT,
 //   payload: newClue,

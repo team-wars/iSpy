@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { newMessage, updateTeams, selectTile } from '../actions/actions';
+import { newMessage, updateTeams, selectTile, populateBoardSocket } from '../actions/actions';
 import Dashboard from '../containers/Dashboard';
 
 // const readyToggle = () => {
@@ -27,11 +27,17 @@ const App = () => {
       dispatch(newMessage({ user, text }));
     });
 
-    socket.on('tile selected', ({affiliation, boardLocation}) => {
+    socket.on('board populated', ({ newBoard }) => {
+      console.log('board populated listener for socket')
+      dispatch(populateBoardSocket(newBoard));
+    });
+
+    socket.on('tile selected', ({ affiliation, boardLocation }) => {
       console.log('a tile has been picked');
       // dispatch(test());
       dispatch(selectTile(boardLocation));
     });
+
   }
 
   return (
