@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Board from '../components/Board.jsx';
-import Chatbox from '../components/Chatbox.jsx';
+import Board from '../components/Board';
+import ChatboxContainer from './ChatboxContainer';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   sessionID: state.game.sessionID,
 });
 
@@ -23,7 +23,7 @@ class GameContainer extends Component {
         </h2>
         This is the Game Container
         <Board />
-        <Chatbox />
+        <ChatboxContainer />
       </section>
     );
   }

@@ -22,11 +22,14 @@ module.exports = {
             const spymaster = !!(red === 0 || blue === 0);
             const userID = uuidv4();
             if (blue > red) team = 'red';
-            else if (red === blue) team = 'blue';
+            else team = 'blue';
             db.query('INSERT INTO "user"(id, room, username, spymaster, team, ready) VALUES($1, $2, $3, $4, $5, $6)', [userID, room, username, spymaster, team, false])
               .then(() => {
                 io.to(room).emit('joined', {
-                  username, isSpyMaster: spymaster, team, ready: false,
+                  user: {
+                    username, isSpyMaster: spymaster, team, ready: false,
+                  },
+                  teamKey: `${team}Team`,
                 });
               })
               .catch((err) => {
