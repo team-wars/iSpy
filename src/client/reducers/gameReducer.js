@@ -26,8 +26,8 @@ const initialState = {
   gameBoard: mockGameBoard,
   currentClue: '',
   guessesLeft: 0,
-  newGuesses: 0,
-  newClue: '',
+  // newGuesses: 0,
+  // newClue: '',
   socket: null,
 };
 

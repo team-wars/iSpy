@@ -20,20 +20,20 @@ export const populateBoard = () => (dispatch) => fetch('/api/game/start', {
     console.log('error in populateBoard fetch ', err);
   });
 
-export const newClueInput = (newClue) => ({
-  type: types.NEW_CLUE_INPUT,
-  payload: newClue,
-});
+// export const newClueInput = (newClue) => ({
+//   type: types.NEW_CLUE_INPUT,
+//   payload: newClue,
+// });
 
 export const setCurrentClue = (clue, guesses) => ({
   type: types.SET_CURRENT_CLUE,
   payload: { clue, guesses },
 });
 
-export const updateGuesses = (guesses) => ({
-  type: types.UPDATE_GUESSES,
-  payload: guesses,
-});
+// export const updateGuesses = (guesses) => ({
+//   type: types.UPDATE_GUESSES,
+//   payload: guesses,
+// });
 
 // SHOULD THIS BE A POST REQ? WHEN DOES FIRST USER ENTER NAME?
 export const newSession = (username) => (dispatch) => fetch('/api/session/create', {
