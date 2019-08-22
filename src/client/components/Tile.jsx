@@ -7,7 +7,7 @@ const Tile = (props) => {
 
   return (
     <article className="tile">
-      <button className="unselected-tile-button" onClick={selectTile} fakeOnClick={testClick} type="button">{word}</button>
+      <button className="unselected-tile-button" onClick={() => selectTile(affiliation)} fakeOnClick={testClick} type="button">{word}</button>
     </article>
   );
 };

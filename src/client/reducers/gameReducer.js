@@ -18,11 +18,16 @@ const initialState = {
   },
   gameBoard: mockGameBoard,
   messages: [],
+  currentClue: '',
+  guessesLeft: 0,
+  // newGuesses: 0,
+  // newClue: '',
 };
 
 const gameReducer = (state = initialState, action) => {
   // console.log(mockGameBoard);
   // console.log('inside reducer');
+  console.log('action is ', action);
   switch (action.type) {
     case types.NEW_SESSION: {
       console.log('got a new session', action.payload.sessionID);
@@ -56,10 +61,13 @@ const gameReducer = (state = initialState, action) => {
       };
     }
     case types.NEW_MESSAGE:
-      // alert(action.payload);
-      console.log('payload:', action.payload);
-      // delete state.socket;
       return { ...state, messages: [...state.messages, action.payload] };
+
+    case types.POPULATE_BOARD:
+      return {
+        ...state,
+        gameBoard: action.payload,
+      };
     default:
       console.log('default reducer run');
       return state;
