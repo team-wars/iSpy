@@ -3,22 +3,15 @@ import { useSelector } from 'react-redux';
 import GameContainer from './GameContainer';
 import ListContainer from './ListContainer';
 import SpymasterContainer from './SpymasterContainer';
+// import { newMessage } from '../actions/actions';
 
 const iSpyContainer = () => {
-  const { socket, currUser: { username } } = useSelector((store) => store.game);
-  // socket.emit('join session', username);
-  socket.on('joined', (msg) => {
-    console.log(`${msg.user.username} has joined`);
-    console.log(msg);
-    // action goes here
-  });
-  console.log(username);
-  // console.lo
+  const { currUser: { username } } = useSelector((store) => store.game);
   return (
     <>
       <p>{username}</p>
       <GameContainer />
-      <ListContainer />
+      {/* <ListContainer /> */}
       <SpymasterContainer />
     </>
   );
