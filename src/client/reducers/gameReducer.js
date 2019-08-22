@@ -81,6 +81,7 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         // isBlueTurn: true,
+        guessesLeft: state.guessesLeft - 1,
         gameBoard: newGameBoard,
       };
     default:
