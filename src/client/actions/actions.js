@@ -64,6 +64,10 @@ export const joinSession = (roomID, username) => ({
   payload: { sessionID: roomID, username },
 });
 
+export const updateTeams = (payload) => ({
+  type: types.UPDATE_TEAMS,
+  payload,
+});
 export const startGame = () => ({
   // NEED A THUNK
   type: types.START_GAME,

@@ -56,7 +56,7 @@ const gameReducer = (state = initialState, action) => {
         currUser: { username, isSpyMaster, team },
         [teamKey]: {
           ...state[teamKey],
-          members: [...state[teamKey].members, { username, isSpyMaster, ready: false }],
+          members: [...state[teamKey].members.map((cv) => ({ ...cv })), { username, isSpyMaster, ready: false }],
         },
       };
     }
@@ -83,6 +83,11 @@ const gameReducer = (state = initialState, action) => {
         // isBlueTurn: true,
         guessesLeft: state.guessesLeft - 1,
         gameBoard: newGameBoard,
+      };
+    case types.UPDATE_TEAMS:
+      return {
+        ...state,
+        [action.payload.teamKey]: { ...state[action.payload.teamKey], members: [...state[action.payload.teamKey].members.map((cv) => ({ ...cv })), action.payload.user] },
       };
     default:
       console.log('default reducer run');
