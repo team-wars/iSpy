@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { populateBoard } from '../actions/actions';
+import { populateBoard, newClueInput, updateGuesses, setCurrentClue } from '../actions/actions';
 
 
 // FOR TESTING
-// import LandingPageButton from '../components/buttons/LandingPageButton.jsx';
+import LandingPageButton from '../components/buttons/LandingPageButton.jsx';
 
 const mapStateToProps = (state) => {
   console.log('in map state to props, ', state);
@@ -18,10 +18,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   // makeNewSession: () => dispatch(makeNewSession()),
   // joinSession: (currentSession, newUsername) => dispatch(joinSession(currentSession, newUsername)),
-  populateBoard: () => dispatch(populateBoard()),
+  populateBoard: (sessionID) => dispatch(populateBoard()),
   newClueInput: (text) => dispatch(newClueInput(text)),
-  setCurrentClue: (text) => dispatch(setCurrentClue(text)),
-  updateGuesses: (text) => dispatch(updateGuesses(text)),
+  updateGuesses: (num) => dispatch(updateGuesses(num)),
+  setCurrentClue: (text, num) => dispatch(setCurrentClue(text, num)),
 });
 
 class SpymasterContainer extends Component {
@@ -32,14 +32,27 @@ class SpymasterContainer extends Component {
   }
 
   render() {
-    // const { sessionID, populateBoard } = this.props;
+    const { sessionID, populateBoard, newClueInput, updateGuesses, setCurrentClue, newClue, newGuesses } = this.props;
     return (
-      <>
-        <section>This is the Spymaster Container</section>
-        {/* <LandingPageButton buttonName="Start Session" buttonFunction={makeNewSession} />
-        <LandingPageButton buttonName="Join Session" buttonFunction={populateBoard} /> */}
+      <section>This is the Spymaster Container
+        <form onSubmit={() => {
+          event.preventDefault();
+          setCurrentClue(newClue, newGuesses);
+        }}>
+          <input type="text" placeholder="Enter New Clue" value={newClue} onChange={(e) => {
+            const clue = e.target.value;
+            newClueInput(clue);
+          }} />
+          <input type="number" placeholder="# of Words" onChange={(e) => {
+            const guesses = e.target.value;
+            updateGuesses(guesses);
+          }} />
+          <input type="submit" value="submit" />
+        </form>
+        {/* <LandingPageButton buttonName="Start Session" buttonFunction={makeNewSession} /> */}
+        <LandingPageButton buttonName="Populate Board" buttonFunction={() => populateBoard(sessionID)} />
         {/* <LandingPageButton buttonName="Join Session" buttonFunction={() => joinSession(sessionID, 'Will')} /> */}
-      </>
+      </section>
     );
   }
 }

@@ -97,9 +97,9 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         currentClue: action.payload.clue,
+        guessesLeft: action.payload.guesses,
         newClue: '',
         newGuesses: 0,
-        guessesLeft: action.payload.guesses,
       };
     case types.UPDATE_GUESSES:
       return {
