@@ -8,7 +8,7 @@ const initialTeamObj = {
 
 const initialState = {
   sessionID: null,
-  isRedTurn: true,
+  isBlueTurn: true,
   redTeam: initialTeamObj,
   blueTeam: initialTeamObj,
   currUser: {
@@ -85,13 +85,28 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         gameBoard: action.payload,
       };
-
+    case types.SET_CURRENT_CLUE:
+      console.log('set current clue, game reducer');
+      return {
+        ...state,
+        currentClue: action.payload.clue,
+        guessesLeft: action.payload.guesses,
+      };
+    case types.SELECT_TILE: {
+      const newGameBoard = JSON.parse(JSON.stringify(state.gameBoard));
+      newGameBoard[action.payload.boardLocation].selected = true;
+      return {
+        ...state,
+        // isBlueTurn: true,
+        guessesLeft: state.guessesLeft - 1 >= 0 ? state.guessesLeft - 1 : 0,
+        gameBoard: newGameBoard,
+      };
+    }
     case types.UPDATE_TEAMS:
       return {
         ...state,
         [action.payload.teamKey]: { ...state[action.payload.teamKey], members: [...state[action.payload.teamKey].members.map((cv) => ({ ...cv })), action.payload.user] },
       };
-
     default:
       console.log('default reducer run');
       return state;

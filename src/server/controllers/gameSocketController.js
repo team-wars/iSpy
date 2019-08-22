@@ -1,14 +1,7 @@
-const db = require('../db/index');
-const selectWords = require('../../utils/word-selection-algo');
-
 module.exports = {
-  newGame(req, res, next) {
-    next();
-  },
-
-  populateBoard(req, res) {
+  populateBoard(session_id, socket, io) {
     // generate 25 unique word ids
-    const { session_id } = req.body;
+
     const ids = [];
 
     while (ids.length < 25) {
@@ -22,7 +15,8 @@ module.exports = {
     // pull words from SQL
     db.query(`SELECT * FROM dictionary WHERE id in (${idString})`, (err, result) => {
       if (err) {
-        return res.status(400).json({ error: 'error in populating board' });
+        console.log('error picking words for socket req: ', err);
+        return;
       }
       // iterate through result and create array of word object
       const wordArray = [];
@@ -50,7 +44,7 @@ module.exports = {
 
       // randomize words in the word array
       function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        for (let i = array.length - 1; i > 0; i -= 1) {
           const j = Math.floor(Math.random() * (i + 1));
           const temp = array[i];
           array[i] = array[j];
@@ -72,7 +66,7 @@ module.exports = {
       db.query(`INSERT INTO board (word_id,affiliation,selected,room,location) VALUES ${sqlValues}`, (error, ressy) => {
         if (error) {
           console.log('error in inserting words into board table ', error);
-          return res.status(400).send('error starting game');
+          return;
         }
         console.log(ressy);
 
@@ -81,9 +75,10 @@ module.exports = {
         // db.close();
 
         // send back wordArray of objects, to frontend
-        return res.status(200).json(wordArray);
+        io.to(room).emit('board populated', (wordArray));
+        // return res.status(200).json(wordArray);
       });
-    // return array
+      // return array
     });
   },
 };

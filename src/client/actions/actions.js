@@ -1,12 +1,12 @@
 import * as types from '../constants/ActionTypes';
 
 // populateBoard thunk
-export const populateBoard = () => (dispatch) => fetch('/api/game/start', {
+export const populateBoard = (sessionID) => (dispatch) => fetch('/api/game/start', {
   method: 'POST',
   headers: {
     'content-type': 'application/json',
   },
-  body: JSON.stringify({ session_id: 1 }),
+  body: JSON.stringify({ session_id: sessionID }),
 })
   .then((response) => response.json())
   .then((data) => {
@@ -19,6 +19,11 @@ export const populateBoard = () => (dispatch) => fetch('/api/game/start', {
   .catch((err) => {
     console.log('error in populateBoard fetch ', err);
   });
+
+export const populateBoardSocket = (newBoard) => ({
+  type: types.POPULATE_BOARD,
+  payload: newBoard,
+});
 
 // export const newClueInput = (newClue) => ({
 //   type: types.NEW_CLUE_INPUT,
@@ -94,10 +99,12 @@ export const endGame = () => ({
   payload: 'filler',
 });
 
-export const selectTile = () => ({
+export const selectTile = (boardLocation) => ({
   // NEED A THUNK
   type: types.SELECT_TILE,
-  payload: 'filler',
+  payload: {
+    boardLocation,
+  },
 });
 
 export const changeTurn = () => ({

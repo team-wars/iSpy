@@ -7,8 +7,8 @@ import ClueDisplay from '../components/ClueDisplay';
 const mapStateToProps = (state) => ({
   sessionID: state.game.sessionID,
   // newClue: state.game.newClue,
-  currentClue: state.clue.currentClue,
-  guessesLeft: state.clue.guessesLeft,
+  currentClue: state.game.currentClue,
+  guessesLeft: state.game.guessesLeft,
 });
 
 class GameContainer extends Component {
