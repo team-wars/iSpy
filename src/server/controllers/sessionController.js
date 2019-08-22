@@ -7,31 +7,48 @@ const genRoomID = () => {
     return result;
 };
 
+const cache = {};
 module.exports = {
-    create(req, res) {
+  create(req, res) {
+    console.log(cache)
+    if (Object.keys(cache).length === 0) {
         db.query('SELECT * FROM session')
             .then(data => {
-                 
-              
-                const cache = {};
-                for (let row of data.rows) {
-                    const room = row.room;
-                    cache[room] = true;
-                }
+                  for (let row of data.rows) {
+                      const room = row.room;
+                      cache[room] = true;
+                  }
                 
                 
                 let roomID = genRoomID();
                 while (roomID in cache) {
                     roomID = genRoomID();
-                }  
+                }
                 
                 console.log('roomID ', roomID)
                 db.query('INSERT INTO session(status, room) VALUES($1, $2)', ['idle', roomID])
-                    .then(result => console.log('result: ', result))
+                  .then(result => {
+                    console.log('result: ', result)
+                    return res.status(200).json({ roomID})
+                  })
                     .catch(err => console.log('error inserting session: ', err));
 
             })
-            .catch(err => console.log('Error selecting from session: ', err));
+        .catch(err => console.log('Error selecting from session: ', err));
+    } else {
+      // console.log(cache);
+      let roomID = genRoomID();
+                while (roomID in cache) {
+                    roomID = genRoomID();
+                    console.log('roomID ', roomID)
+                }
+                db.query('INSERT INTO session(status, room) VALUES($1, $2)', ['idle', roomID])
+                  .then(result => {
+                    console.log('result: ', result)
+                    return res.status(200).json({ roomID})
+                  })
+                  .catch(err => console.log('error inserting session: ', err));
+    }
 
     }
 }
