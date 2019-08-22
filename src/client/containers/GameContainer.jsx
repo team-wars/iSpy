@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Board from '../components/Board.jsx';
-import Chatbox from '../components/Chatbox.jsx';
-import ClueDisplay from '../components/ClueDisplay';
+import Board from '../components/Board';
+import ChatboxContainer from './ChatboxContainer';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   sessionID: state.game.sessionID,
   newClue: state.game.newClue,
   currentClue: state.game.currentClue,
@@ -29,7 +28,7 @@ class GameContainer extends Component {
         This is the Game Container
         <ClueDisplay guesses={guessesLeft} clue={currentClue}/>
         <Board />
-        <Chatbox />
+        <ChatboxContainer />
       </section>
     );
   }
